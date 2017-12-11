@@ -1,5 +1,6 @@
 CREATE DATABASE diamond_shop;
 USE diamond_shop;
+-- Nhóm diamond;
 
 CREATE TABLE categories (
     id INT AUTO_INCREMENT,
