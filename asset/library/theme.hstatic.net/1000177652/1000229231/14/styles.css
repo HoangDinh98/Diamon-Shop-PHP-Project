@@ -1,4 +1,4 @@
-*{	font-family: Roboto, sans-serif;!important;margin: 0;padding: 0;}
+*{	font-family: Roboto, sans-serif !important;margin: 0;padding: 0;}
 .glyphicon{font-family: 'Glyphicons Halflings'!important;}
 .fa{font-family: 'FontAwesome'!important;}
 html,body{border: 0;background-color: #fff;}
@@ -162,7 +162,7 @@ ul.expanded > li, ol.expanded > li { margin-bottom: 10px; }
 .input-group input,
 .input-group select,
 .input-group textarea{
-	color: #050505!imoprtant;
+    color: #050505 !important;
 }
 /****************HOME*********************/
 .scrollToTop {
@@ -828,7 +828,8 @@ min-width: 225px!important;
 	border-bottom: 4px dashed transparent;
 	border-left: 4px solid;
 }
-***********MENU *******/
+
+/**********MENU *******/
 @media (min-width: 768px) {
 	.navbar-header {
 		float: left;
@@ -850,7 +851,7 @@ min-width: 225px!important;
 		color: #f45c5d;
 	}
 
-	.dropdown-menu>li>a:hover, .dropdown-menu>li>a:focus , {
+	.dropdown-menu>li>a:hover, .dropdown-menu>li>a:focus  {
 		background-color: transparent;
 	}
 }
@@ -4207,7 +4208,7 @@ span.action_link {
 	#navbar .dropdown open, #navbar li:hover > a:first-child {
 		color: #f5f4f2;
 	}
-	.dropdown-menu>li>a:hover, .dropdown-menu>li>a:focus ,{
+	.dropdown-menu>li>a:hover, .dropdown-menu>li>a:focus {
 		background-color: transparent;
 	}
 
@@ -4628,7 +4629,7 @@ position: relative;
 	.flexslider{margin: 0 0 15px 0;}
 	.banner2 { margin-bottom: 20px;}
 	.product-list .product-block .product-detail{text-align:center;}
-	.product-list .product-block .product-detail .pro-price-del {text-align:center;!important;}
+	.product-list .product-block .product-detail .pro-price-del {text-align:center !important;}
 }
 
 /********************* END -> Responsive **********************/
