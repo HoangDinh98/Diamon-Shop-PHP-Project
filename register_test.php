@@ -12,7 +12,7 @@ if(isset($_POST['register-submit'])){
 //        $birthday= $_POST['birthday'];
         
 	
-	$register_query = "INSERT INTO user (`user_name`, `email`, `phone`, `password`, `fullname`)"
+	$register_query = "INSERT INTO users (`user_name`, `email`, `phone`, `password`, `fullname`)"
                 . "VALUES ('$username','$email','$phone','$password','$fname')";
         mysqli_query($connect,$register_query);
 }
