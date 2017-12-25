@@ -1,11 +1,5 @@
 <?php
-
-session_start(); // Starting Session
-$servername = "localhost";
-$db_user = "root";
-$db_password = "";
-$dbname = "diamond_shop";
-$connection = new mysqli($servername, $db_user, $db_password, $dbname);
+include 'include.php';
 ?>
 
 <?php
@@ -20,11 +14,11 @@ if (isset($_POST['submit'])) {
         $password = $_POST['password'];
 
 
-        $query = mysqli_query($connection, "select id from user where user_name = '$username' AND password ='$password'");
+        $query = mysqli_query($connect, "select id from user where user_name = '$username' AND password =md5('$password')");
         if (mysqli_num_rows($query) == 1)
             header("location: o.php");
     }
 }
-echo ('<p>' . $error . '</p>');
+//echo ('<p>' . $error . '</p>');
 ?>
 

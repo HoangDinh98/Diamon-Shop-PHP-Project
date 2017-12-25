@@ -1,6 +1,8 @@
 
 <?php 
 include ('login.php');
+include 'register_test.php';
+
 ?>
 
 <!DOCTYPE html>
@@ -38,7 +40,7 @@ include ('login.php');
       <div class="modal-content">
         <div class="modal-header" style="padding:35px 50px;">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4><span class="glyphicon glyphicon-lock"></span> Login</h4>
+          <h4><span class="glyphicon glyphicon-lock"></span>Login </h4>
         </div>
         <div class="modal-body" style="padding:40px 50px;">
             <form role="form" method="POST">
@@ -53,7 +55,7 @@ include ('login.php');
             </div>
             <div class="form-group">
               <label for="password"><span class="glyphicon glyphicon-eye-open"></span> Password</label>
-              <input type="text" class="form-control" name="password" placeholder="Enter password">
+              <input type="password" class="form-control" name="password" placeholder="Enter password">
             </div>
             <div class="checkbox">
               <label><input type="checkbox" value="" checked>Remember me</label>
@@ -79,29 +81,40 @@ include ('login.php');
       <div class="modal-content">
         <div class="modal-header" style="padding:35px 50px;">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4><span class="glyphicon glyphicon-lock"></span> Login</h4>
+          <h4><span class="glyphicon glyphicon-lock"></span> Register</h4>
         </div>
         <div class="modal-body" style="padding:40px 50px;">
           <form role="form" method="POST">
             <div class="form-group">
-              <label for="usrname"><span class="glyphicon glyphicon-user"></span> Username sff</label>
-              <input type="text" class="form-control" id="usrname" placeholder="Enter email">
+              <label for="usrname"><span class="glyphicon glyphicon-user"></span> Username</label>
+              <input type="text" class="form-control" id="usrname" name="username" placeholder="Enter username">
             </div>
             <div class="form-group">
+                <label for="email"><span class="glyphicon glyphicon-user"></span> Email</label>
+                <input type="text" class="form-control" id="email" name="email" placeholder="Enter Email">
+            </div>    
+             <div class="form-group">
+                <label for="phone"><span class="glyphicon glyphicon-user"></span> Phone</label>
+                <input type="text" class="form-control" id="phone" name="phone" placeholder="Enter your phone">
+            </div>    
+            <div class="form-group">
               <label for="psw"><span class="glyphicon glyphicon-eye-open"></span> Password</label>
-              <input type="text" class="form-control" id="psw" placeholder="Enter password">
+              <input type="password" class="form-control" id="password" name="password" placeholder="Enter password">
             </div>
-            <div class="checkbox">
-              <label><input type="checkbox" value="" checked>Remember me</label>
-            </div>
-              <button type="submit" class="btn btn-success btn-block"><span class="glyphicon glyphicon-off"></span> Login</button>
+             <div class="form-group">
+                <label for="fname"><span class="glyphicon glyphicon-user"></span> Full Name</label>
+                <input type="text" class="form-control" id="fname" name="fullname" placeholder="Enter Your Full Name">
+            </div>    
+              
+           
+              <button type="submit" name="register-submit" class="btn btn-success btn-block"><span class="glyphicon glyphicon-off">
+                  </span> Register </button>
+              <p> Alredy a member?</p> 
+              <a href="login.php">Sign in</a>
+             
           </form>
         </div>
-        <div class="modal-footer">
-          <button type="submit" class="btn btn-danger btn-default pull-left" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Cancel</button>
-          <p>Not a member? <a href="#">Sign Up</a></p>
-          <p>Forgot <a href="#">Password?</a></p>
-        </div>
+       
       </div>
       
     </div>
