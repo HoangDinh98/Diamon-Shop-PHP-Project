@@ -1,6 +1,7 @@
 <?php
-require_once 'header.php';
-require_once 'content.php';
-require_once 'footer.php';
+include 'include.php';
+include 'header.php';
+include 'content.php';
+include 'footer.php';
 ?>
 
