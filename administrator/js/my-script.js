@@ -124,3 +124,7 @@ jQuery('#theme-change .layout input').change(function () {
 var setColor = function (color) {
     $('#style_color').attr("href", "css/style_" + color + ".css");
 }
+
+//$(document).ready(function(){
+//    $("#notify").delay(5000).fadeOut();
+//});

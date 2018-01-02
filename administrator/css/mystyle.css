@@ -21,9 +21,23 @@ li [class^="icon-"], li [class*=" icon-"] {
 }
 
 .form-group {
-    padding: 5px 0px;
+    padding: 2px 0px;
 }
 
-.form-group input[type="text"] {
+select, .form-group input, .form-group input[type="text"] {
     border-radius: 3px;
+}
+
+#theme-change {
+    top: 60px;
+}
+/***************************************/
+/*Style for error notify*/
+.error {
+    color: #CF1212;
+    /*display: inline-block;*/
+}
+
+.error-input {
+    border: 1px solid #CF1212;
 }

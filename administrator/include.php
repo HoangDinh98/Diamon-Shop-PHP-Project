@@ -1,4 +1,5 @@
 <?php
+session_start();
 $hostname = "localhost";
 $dbname = "diamond_shop";
 $db_user = "root";
@@ -13,6 +14,8 @@ if ($connect->connect_error) {
 } else {
 //    echo '<script> alert("Connect Successful");</script>';
 }
+
+date_default_timezone_set('Asia/Ho_Chi_Minh');
 //ob_start();
 //mysqli_query("set names 'utf8'");
 ?>

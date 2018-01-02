@@ -41,8 +41,12 @@
 
 <script src="./js/my-script.js" type="text/javascript" charset="utf-8" async defer></script>
 <script src="./js/my-script-ajax.js" type="text/javascript" charset="utf-8" async defer></script> 
-<link href="./css/mystyle.css" rel="stylesheet" type="text/css">
 
+
+<link href="./confirm-form/notifier.style.css" rel="stylesheet">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="./confirm-form/notifier.script.js"></script>
+<link href="./css/mystyle.css" rel="stylesheet" type="text/css">
 </body>
 </html>
 
