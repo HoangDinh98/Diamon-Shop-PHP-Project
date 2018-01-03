@@ -37,8 +37,8 @@
 		<div class="account pull-right">
                                                 <ul class="user-menu">				
 			<li><a href="cart.html">Giỏ Hàng</a></li>
-			<li><a href="checkout.html">Đăng Nhập</a></li>					
-			<li><a href="register.html">Đăng kí</a></li>		
+			<li><a href="Login/login.php">Đăng Nhập</a></li>					
+			<li><a href="Login/register.php">Đăng kí</a></li>		
                                                 </ul>
 		</div>
                             </div>
@@ -49,7 +49,7 @@
 	<div class="navbar-inner main-menu">				
                             <a href="index.html" class="logo pull-left"><img src="./asset/themes/images/logo_1.png" class="site_logo" alt=""></a>
 		<nav id="menu" class="pull-right">
-                                                <ul>
+                                             <ul style="margin-right: 97px;">
                                                           <li><a href="demo.php">Trang chủ</a>
 			<li><a href="./products.html">Đồng Hồ</a>					
                                                                     <ul>
