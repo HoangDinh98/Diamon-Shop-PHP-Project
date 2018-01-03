@@ -7,7 +7,7 @@ $ce = $pe = $de = $ne = $masp = $msg = '';
 ?>
 
 <?php
-$id = FALSE;
+$id = "";
 $error_message = 'Vui lòng nhập đúng kiểu dữ liệu yêu cầu';
 $name_err = $category_err = $provider_err = $promotion_err = $quantiy_err = $weight_err = $price_err = $is_err = FALSE;
 $p_name = $parent_id = $p_category = $p_provider = $p_promotion = $p_quantity = $p_weight = $p_price = $p_description = "";
@@ -19,7 +19,8 @@ function test_image_type($filename) {
 //    if ($_FILES['avatar']['type'] == "image/jpeg" && $_FILES['image']['type'] = "image/png") {
 //        return TRUE;
 //    }
-    $file_ext = strtolower(end(explode('.', $filename)));
+    $f1 = explode('.', $filename);
+    $file_ext = strtolower(end($f1));
 
     $expensions = array("jpeg", "jpg", "png", "JPEG", "JPG", "PNG");
 
@@ -69,6 +70,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 //    $p_avatar = $_POST["avatar"];
 //    echo var_dump($p_avatar);
 //    $p_description = $_POST["description"];
+    
+    if(!empty($_POST['id'])) {
+        $id = $_POST['id'];
+    }
 
     if (empty($_POST["name"])) {
         $name_err = $is_err = TRUE;
@@ -119,54 +124,82 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 //    If data is validation page will direct to action.php
     if (!$is_err) {
+// if this is $id != null, update else insert
 
-        if ($id) {
-            $d = mysqli_escape_string($conn, $d);
-            mysqli_query($conn, "update products set
-                                                                                        name='$n',
-                                                                                        categoryid='$c',
-                                                                                        price='$p',
-                                                                                        description='$d',
-                                                                                        productcode='$pc'
-                                                                                where id = $id	
-                                                                                        ");
+        if (isset($id) && $id != "") {
+//            Update
+//            echo '<script> alert("This is update");</script>';
+            $query = "UPDATE products "
+                    . "SET category_id='$p_category', provider_id='$p_provider', "
+                    . "promotion_id='$p_promotion', name='$p_name', quantity='$p_quantity', "
+                    . "weight='$p_weight', price='$p_price', description='$p_description'  "
+                    . "WHERE id = '$id'";
+            
+            echo '<script> alert(" SSSS2 '.$query.'");</script>';
+            
+            $_SESSION['notify'] = $query;
+            
+            mysqli_query($connect, $query);
             $pid = $id;
             $r = '';
-            if (!is_dir("../productimages/$c"))
-                mkdir("../productimages/$c", 0777, true);
+            if (!is_dir("../asset/images/product/$p_category"))
+                mkdir("../asset/images/product/$p_category", 0777, true);
             $year = date('Y');
             $month = date('m');
             $day = date('d');
-            $sub_folder = $c . '/' . $pid . '/' . $year . '/' . $month . '/' . $day;
-            $upload_url = 'productimages/' . $sub_folder;
+            $sub_folder = $p_category . '/' . $pid . '/' . $year . '/' . $month . '/' . $day;
+            $upload_url = 'asset/images/product/' . $sub_folder;
 
 
-            $pdir = "../productimages/" . $sub_folder;
+            $pdir = "../asset/images/product/" . $sub_folder;
 
-            if (!is_dir("../productimages/" . $sub_folder))
-                if (!mkdir("../productimages/" . $sub_folder, 0777, true))
+            if (!is_dir("../asset/images/product/" . $sub_folder))
+                if (!mkdir("../asset/images/product/" . $sub_folder, 0777, true))
                     return FALSE;
 
-            if (isset($_FILES['image'])) {
-                $thumb_width = 150;
-                $file_type = $_FILES['image']['type'];
-                if ($_FILES['image']['type'] = "image/jpeg" && $_FILES['image']['type'] = "image/png") {
+//            if (isset($_FILES['image'])) {
+//                $thumb_width = 150;
+//                $file_type = $_FILES['image']['type'];
+//                if ($_FILES['image']['type'] = "image/jpeg" && $_FILES['image']['type'] = "image/png") {
+//
+//                    $ext = substr($_FILES['image']['name'], strrpos($_FILES['image']['name'], '.') + 1);
+//                    $image_name = time() . '.' . $ext;
+//                    $img1 = "$pdir/$image_name";
+//                    move_uploaded_file($_FILES['image']['tmp_name'], $img1);
+//                    /*
+//                     * insert into photos table
+//                     */
+//                    mysqli_query($conn, "insert into photos(path,product_id,is_thumbnail,created_date) 
+//                                                  values('$upload_url/$image_name','$pid','0',now())
+//                                                        ");
+//                }
+//            }
 
-                    $ext = substr($_FILES['image']['name'], strrpos($_FILES['image']['name'], '.') + 1);
-                    $image_name = time() . '.' . $ext;
+            if (isset($_FILES['avatar'])) {
+                $thumb_width = 150;
+                $file_type = $_FILES['avatar']['type'];
+                if (test_image_type($_FILES['avatar']['name'])) {
+                    $ext = substr($_FILES['avatar']['name'], strrpos($_FILES['avatar']['name'], '.') + 1);
+//                Set name for image follow the time HHMMSS
+                    $image_name = strftime("%H%M%S", time()) . '.' . $ext;
+
+//                $image_name = time() . '.' . $ext;
                     $img1 = "$pdir/$image_name";
-                    move_uploaded_file($_FILES['image']['tmp_name'], $img1);
+                    move_uploaded_file($_FILES['avatar']['tmp_name'], $img1);
                     /*
                      * insert into photos table
                      */
-                    mysqli_query($conn, "insert into photos(path,product_id,is_thumbnail,created_date) 
-                                                  values('$upload_url/$image_name','$pid','0',now())
-                                                        ");
+                    mysqli_query($connect, "INSERT INTO images(path,product_id,is_thumbnail)"
+                            . "VALUES('./$upload_url/$image_name','$pid','1')");
                 }
+            } else {
+                echo "Image error";
             }
 
-            header("location: products.php");
+            $_SESSION['notify'] = "Cập nhật thông tin sản phẩm thành công";
+//            echo '<script>window.location.href = "./productlist.php"</script>';
         } else {
+//            Insert Product
             $query = "INSERT INTO products(name, category_id, provider_id, promotion_id, quantity, weight, price, is_active, description)"
                     . "VALUES ('$p_name','$p_category','$p_provider','$p_promotion','$p_quantity', '$p_weight', '$p_price', '1', '$p_description')";
 
@@ -219,7 +252,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             }
 //            header("location: productlist.php");
             //$im = "images_upload/".$_FILES['image']['name'];
-            
+
             $_SESSION['notify'] = "Thêm sản phẩm thành công";
 
             echo '<script>window.location.href = "./productlist.php"</script>';
@@ -245,6 +278,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <div class="widget">
                 <div class="widget-body">
                     <form class="form-horizontal" method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" enctype="multipart/form-data">
+                        <input type="hidden" name="id" value="<?php echo $id; ?>" >
                         <div class="form-group">
                             <label class="control-label col-sm-2" for="email">Tên sản phẩm:</label>
                             <div class="col-sm-10">
@@ -263,12 +297,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                     <option value="0">-- Danh mục gốc --</option>
                                     <?php
                                     $parent_id = "";
-                                    if(isset($p_category)) {
+                                    if (isset($p_category)) {
                                         $s1 = mysqli_query($connect, "SELECT parent_id FROM categories WHERE id=$p_category");
                                         $fs1 = mysqli_fetch_array($s1);
                                         $parent_id = $fs1['parent_id'];
                                     }
-                                    
+
                                     $cs = mysqli_query($connect, "SELECT * FROM categories WHERE parent_id=0");
                                     while ($ci = mysqli_fetch_array($cs)) {
                                         ?>
@@ -292,13 +326,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                             $p2 = mysqli_fetch_array($pr2);
                                             echo $p2['name'];
                                             ?> </option>
-                                    <?php } ?>
-                                        
-                                        <?php
-                                            if(isset($p_category)) {
-                                                
-                                            }
-                                        ?>
+                                        <?php } ?>
+
+                                    <?php
+                                    if (isset($p_category)) {
+                                        $query = mysqli_query($connect, "SELECT id, name FROM categories WHERE parent_id = '$parent_id'");
+                                        while ($result = mysqli_fetch_array($query)) {
+                                            ?>
+                                            <option value="<?php echo $result['id']; ?> "  <?php if ($result['id'] == $p_category) echo "selected='true'" ?> >
+                                                <?php echo $result['name'] ?>
+                                            </option>
+                                            <?php
+                                        };
+                                    }
+                                    ?>
                                 </select>
                                 <span class="error">
                                     * <?php if ($category_err) echo $error_message ?>
@@ -314,7 +355,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                     $query_execute = mysqli_query($connect, "SELECT id, name FROM providers");
                                     while ($query_result = mysqli_fetch_array($query_execute)) {
                                         ?>
-                                        <option value="<?php echo $query_result["id"] ?>"> <?php echo $query_result["name"] ?></option>
+                                        <option value="<?php echo $query_result["id"] ?>" 
+                                                <?php if ($p_provider == $query_result['id']) echo 'selected = "true"' ?>> 
+                                                <?php echo $query_result["name"] ?>
+                                        </option>
                                         <?php
                                     };
                                     ?>
@@ -333,7 +377,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                     $query_execute = mysqli_query($connect, "SELECT id, value FROM promotions ORDER BY value ASC");
                                     while ($query_result = mysqli_fetch_array($query_execute)) {
                                         ?>
-                                        <option value="<?php echo $query_result["id"] ?>"> <?php echo $query_result["value"] . "%" ?></option>
+                                        <option value="<?php echo $query_result["id"] ?>" 
+                                                <?php if ($p_promotion == $query_result['id']) echo 'selected = "true"' ?>> 
+                                                <?php echo $query_result["value"] . "%" ?>
+                                        </option>
                                         <?php
                                     };
                                     ?>

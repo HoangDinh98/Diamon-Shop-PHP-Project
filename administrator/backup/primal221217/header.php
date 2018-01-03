@@ -1,10 +1,9 @@
 <!DOCTYPE html><!--[if IE 8]><html lang="en" class="ie8"></html><![endif]--><!--[if IE 9]><html lang="en" class="ie9"></html><![endif]--><!--[if !IE]><!-->
-<html lang="vi">
+<html lang="en">
     <!--<![endif]-->
     <head>
         <meta charset="utf-8" />
         <title>Admin Lab Dashboard</title>
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta content="width=device-width, initial-scale=1.0" name="viewport" />
         <meta content="" name="description" />
         <meta content="" name="author" />
@@ -19,17 +18,13 @@
         <link rel="stylesheet" type="text/css" href="./assets/uniform/css/uniform.default.css" />
         <link href="./assets/fullcalendar/fullcalendar/bootstrap-fullcalendar.css" rel="stylesheet" />
         <link href="./assets/jqvmap/jqvmap/jqvmap.css" media="screen" rel="stylesheet" type="text/css" />
-        
-        <!--<link href="./css/mystyle.css" rel="stylesheet" type="text/css">-->
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>-->
-        <script src="../asset/bootstrap-3.3.7/js/jquery-3.2.1.min.js"></script>
 
     </head>
     <body class="fixed-top">
         <div id="header" class="navbar navbar-inverse navbar-fixed-top">
             <div class="navbar-inner">
-                <div class="container-fluid"><a class="brand" href="./index.php"><img src="./img/logo.png" alt="Admin Lab" /></a><a class="btn btn-navbar collapsed" id="main_menu_trigger" data-toggle="collapse" data-target=".nav-collapse"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span><span class="arrow"></span></a>
+                <div class="container-fluid"><a class="brand" href="./index.html"><img src="./img/logo.png" alt="Admin Lab" /></a><a class="btn btn-navbar collapsed" id="main_menu_trigger" data-toggle="collapse" data-target=".nav-collapse"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span><span class="arrow"></span></a>
                     <div id="top_menu" class="nav notify-row">
                         <ul class="nav top-menu">
                             <li class="dropdown"><a class="dropdown-toggle element" data-placement="bottom" data-toggle="tooltip" href="#" data-original-title="Settings"><i class="icon-cog"></i></a></li>
@@ -96,8 +91,13 @@
                 </div>
                 <ul class="sidebar-menu">
                     <li class="has-sub active"><a href="./index.php" class=""><span class="icon-box"><i class="icon-home"></i></span> Trang chủ Admin </a>
+                        <!-- @@@@@@@@@@@@@@@@@@@@@@@@@ -->
+                        <!-- <ul class="sub">
+                          <li><a class="" href="./index.html">Dashboard 1</a></li>
+                          <li class="active"><a class="" href="./index_2.html">Dashboard 2</a></li>
+                        </ul> -->
                     </li>
-                    <li class="has-sub"><a href="./productlist.php" class="" id="product-page"><span class="icon-box"><i class="icon-leaf"></i></span> Sản phẩm <span class="arrow"></span></a>
+                    <li class="has-sub" id="product-page"><a href="javascript:;" class=""><span class="icon-box"><i class="icon-leaf"></i></span> Sản phẩm <span class="arrow"></span></a>
                         <!-- @@@@@@@@@@@@@@@@@@@@@@@@@ -->
                         <!-- <ul class="sub">
                           <li><a class="" href="./ui_elements_general.html">General</a></li>
@@ -106,7 +106,7 @@
                           <li><a class="" href="./ui_elements_typography.html">Typography</a></li>
                         </ul> -->
                     </li>
-                    <li class="has-sub"><a href="./categories.php" class=""><span class="icon-box"><i class="icon-tasks"></i></span> Danh mục sản phẩm <span class="arrow"></span></a>
+                    <li class="has-sub"><a href="javascript:;" class=""><span class="icon-box"><i class="icon-tasks"></i></span> Danh mục sản phẩm <span class="arrow"></span></a>
                         <!-- @@@@@@@@@@@@@@@@@@@@@@@@@ -->
                         <!-- <ul class="sub">
                           <li><a class="" href="./calendar.html">Calendar</a></li>
@@ -117,13 +117,6 @@
                           <li><a class="" href="./gallery.html"> Gallery</a></li>
                         </ul> -->
                     </li>
-                    
-                    <li class="has-sub"><a href="./providers.php" class=""><span class="icon-box"><i class="icon-briefcase"></i></span> Nhà cung cấp <span class="arrow"></span></a>
-                    </li>
-                    
-                    <li class="has-sub"><a href="javascript:;" class=""><span class="icon-box"><i class="icon-fire"></i></span> Khuyến mãi <span class="arrow"></span></a>
-                    </li>
-                    
                     <li class="has-sub"><a href="javascript:;" class=""><span class="icon-box"><i class="icon-group"></i></span> Tài khoản người dùng <span class="arrow"></span></a>
                         <!-- @@@@@@@@@@@@@@@@@@@@@@@@@ -->
                         <!-- <ul class="sub">
@@ -146,6 +139,17 @@
                           <li><a class="" href="./maps_vector.html"> Vector Maps</a></li>
                         </ul> -->
                     </li>
+                    <li class="has-sub"><a href="javascript:;" class=""><span class="icon-box"><i class="icon-file-alt"></i></span> Sample Pages <span class="arrow"></span></a>
+                        <ul class="sub">
+                            <li><a class="" href="./profile.html">Profile</a></li>
+                            <li><a class="" href="./blank.html">Blank Page</a></li>
+                            <li><a class="" href="./sidebar_closed.html">Sidebar Closed Page</a></li>
+                            <li><a class="" href="./pricing_tables.html">Pricing Tables</a></li>
+                            <li><a class="" href="./faq.html">FAQ</a></li>
+                            <li><a class="" href="./errors.html">Errors</a></li>
+                        </ul>
+                    </li>
+                    <li><a class="" href="./login.html"><span class="icon-box"><i class="icon-user"></i></span> Login Page</a></li>
                 </ul>
             </div>
             <div id="main-content">
@@ -169,3 +173,5 @@
                             </ul>
                         </div>
                     </div>
+               
+
