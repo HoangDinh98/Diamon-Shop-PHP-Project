@@ -27,7 +27,7 @@
                                 <div class="active item">
                                     <ul class="thumbnails"><br> 
                                         <?php
-                                        $rows_result = mysqli_query($connect, "SELECT id FROM products");
+                                        $rows_result = mysqli_query($connect, "SELECT id FROM products WHERE quantity < 200");
                                         $rows_no = mysqli_num_rows($rows_result);
                                         $rows_per_page = 8;
                                         $pages_no = intval(($rows_no - 1) / $rows_per_page) + 1;
@@ -38,7 +38,7 @@
                                         $start = ($page_curent - 1) * $rows_per_page;
 
                                         $prs = mysqli_query($connect, " SELECT id , name, price FROM products
-                                                            order by id desc 
+                                                            
                                                             limit $start,$rows_per_page
                                                                 ");
 
