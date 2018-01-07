@@ -20,7 +20,7 @@
                 <div class="span12">
                     <h4 class="title">
                         <span class="pull-left"><span class="text"><span class="line">Sản Phẩm <strong>Nổi Bật</strong></span></span></span>
-                          
+                    
 
                         <div id="myCarousel-2" class="myCarousel carousel slide">
                             <div class="carousel-inner">
@@ -29,7 +29,7 @@
                                         <?php
                                         $rows_result = mysqli_query($connect, "SELECT id FROM products WHERE quantity < 200");
                                         $rows_no = mysqli_num_rows($rows_result);
-                                        $rows_per_page = 8;
+                                        $rows_per_page = 4;
                                         $pages_no = intval(($rows_no - 1) / $rows_per_page) + 1;
 
                                         $page_curent = isset($_GET['p']) ? $_GET['p'] : 1;
@@ -61,12 +61,13 @@
                                                     <a href="product_detail.php" class="title"><?php echo $pr['name']; ?></a><br/>
                                                     <a href="product_detail.php" class="category">Phong cách thể thao</a>
                                                     <p class="price"><?php
-                                        if ($pr['price'] > 0) {
-                                            echo($pr['price']);
-                                            echo(" VND");
-                                        } else
-                                            echo(" Please Call!");
-                                        ?></p>
+                                                        if ($pr['price'] > 0) {
+                                                            echo($pr['price']);
+                                                            echo(" VND");
+                                                        } else
+                                                            echo(" Please Call!");
+                                                        ?></p>
+                                                    <input type="submit" value="Thêm vào giỏ hàng">
 
                                                 </div>
                                             </li>
@@ -95,7 +96,7 @@
                                                 <?php
                                                 $rows_result = mysqli_query($connect, "SELECT id FROM products");
                                                 $rows_no = mysqli_num_rows($rows_result);
-                                                $rows_per_page = 8;
+                                                $rows_per_page = 4;
                                                 $pages_no = intval(($rows_no - 1) / $rows_per_page) + 1;
 
                                                 $page_curent = isset($_GET['p']) ? $_GET['p'] : 1;
@@ -133,14 +134,15 @@
                                                                 } else
                                                                     echo(" Please Call!");
                                                                 ?></p>
+                                                            <input type="submit" value="Thêm vào giỏ hàng">
 
                                                         </div>
                                                     </li>
 
 
-    <?php
-}
-?> 
+                                                    <?php
+                                                }
+                                                ?> 
                                             </ul>
                                         </div>
                                     </div>
@@ -149,6 +151,27 @@
                         </div>
                 </div>						
             </div>
+            <!--phân trang-->
+            <div style="margin-left: 50%;">
+            <?php
+            if ($pages_no > 1) {
+                echo "Trang: ";
+                if ($page_curent > 1) {
+                    echo "<a href='demo.php?p=1' class=\"page\" >1</a>&nbsp;&nbsp;";
+                    echo "<a href='demo.php?p=" . ($page_curent - 1) . "' class=\"page\">Trước&nbsp;&nbsp;";
+                }
+                echo "<b class=\"page\" >$page_curent</b>&nbsp;&nbsp;";
+                if ($page_curent < $pages_no) {
+                    echo "<a href='demo.php?p=" . ($page_curent + 1) . "' class=\"page\" >2&nbsp;&nbsp;";
+                    echo "<a href='demo.php?p=$pages_no' class=\"page\" >3</a>&nbsp;&nbsp;";
+                }
+            }
+            ?>
+            </div>
+
+
+
+
             <div class="row feature_box">						
                 <div class="span4">
                     <div class="service">
