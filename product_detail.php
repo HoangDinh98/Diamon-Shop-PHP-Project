@@ -39,7 +39,7 @@ require_once("header.php");
                         */
                         $photo_result = $connect->query(" SELECT pt.*
                                                     FROM images pt
-                                                    WHERE pt.product_id =$prId;	
+                                                    WHERE pt.product_id =$prId AND is_thumbnail = 1 AND is_active = 1;	
                                                                 ");
 //                          
                                 
