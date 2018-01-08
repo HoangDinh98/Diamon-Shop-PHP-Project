@@ -440,7 +440,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                     ?>
                                     <div id="<?php echo 'image-id-' . $image['id']; ?>" class="col-sm-10">
                                         <img width="70px" src="<?php echo "." . $image['path'] ?>">
-                                        <a class="button-a delete-button" onclick="addNotifier(<?php echo $image["id"] . ", 'avatar'" ?>)">Xóa</a>
+                                        <a class="button-a delete-button" onclick="addNotifier(<?php echo $image["id"] . ", 'avatar'" ?>)"><i class="icon-remove"></i></a>
                                     </div>
                                     <?php
                                 }
@@ -465,7 +465,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                     ?>
                                     <div id="<?php echo 'image-id-' . $image['id']; ?>" class="col-sm-10">
                                         <img width="70px" src="<?php echo "." . $image['path'] ?>">
-                                        <a class="button-a delete-button" onclick="addNotifier(<?php echo $image["id"] . ", 'image1'" ?>)">Xóa</a>
+                                        <a class="button-a delete-button" onclick="addNotifier(<?php echo $image["id"] . ", 'image1'" ?>)"><i class="icon-remove"></i></a>
                                     </div>
                                     <?php
                                 } else {
@@ -487,7 +487,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                     ?>
                                     <div id="<?php echo 'image-id-' . $image['id']; ?>" class="col-sm-10">
                                         <img width="70px" src="<?php echo "." . $image['path'] ?>">
-                                        <a class="button-a delete-button" onclick="addNotifier(<?php echo $image["id"] . ", 'image2'" ?>)">Xóa</a>
+                                        <a class="button-a delete-button" onclick="addNotifier(<?php echo $image["id"] . ", 'image2'" ?>)"><i class="icon-remove"></i></a>
                                     </div>
                                     <?php
                                 } else {
@@ -509,7 +509,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                     ?>
                                     <div id="<?php echo 'image-id-' . $image['id']; ?>" class="col-sm-10">
                                         <img width="70px" src="<?php echo "." . $image['path'] ?>">
-                                        <a class="button-a delete-button" onclick="addNotifier(<?php echo $image["id"] . ", 'image3'" ?>)">Xóa</a>
+                                        <a class="button-a delete-button" onclick="addNotifier(<?php echo $image["id"] . ", 'image3'" ?>)"><i class="icon-remove"></i></a>
                                     </div>
                                     <?php
                                 } else {

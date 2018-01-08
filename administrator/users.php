@@ -92,7 +92,9 @@ include 'header.php';
                                     <td><?php echo $query_result['birthday'] ?></td>
                                     <td><?php echo $query_result['phone'] ?></td>
                                     <td>
-                                        <a class="button-a delete-button" onclick="addNotifier(<?php echo $query_result["id"] . ', ' . $page_curent ?>)"><i class="icon-trash"></i></a>
+                                        <?php if ($query_result['user_name'] != 'admin') { ?>
+                                            <a class="button-a delete-button" onclick="addNotifier(<?php echo $query_result["id"] . ', ' . $page_curent ?>)"><i class="icon-trash"></i></a>
+                                        <?php } ?>
                                     </td>
                                 </tr>
                                 <?php
