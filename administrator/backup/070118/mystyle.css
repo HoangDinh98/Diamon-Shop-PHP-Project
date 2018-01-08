@@ -46,32 +46,34 @@ select, .form-group input, .form-group input[type="text"] {
 table thead th {
     vertical-align: top;
 }
-/*****************************************/
+
 .button-a {
-    padding: 2px 5px;
+/*    border: 2px solid #93a1a1;
+    border-radius: 5px; */
+    padding: 5px;
     color: #93a1a1;
 }
 
 .edit-button {
+    /*background-color: #009688;*/
     color: #009688;
-    font-size: 28px;
+    font-size: 24px;
 }
 
 .edit-button:hover {
-    background-color: #DDDDDD;
-    border-radius: 5px;
-    color: #37A68E;
+    /*background-color: #37C65E;*/
+    color: #37C65E;
 }
 
 .delete-button {
-    padding: 2px 8px;
+/*        background-color: #bb2417;
+        padding: 5px 20px;*/
     color: #bb2417;
-    font-size: 28px;
+    font-size: 24px;
 }
 
 .delete-button:hover {
-    background-color: #DDDDDD;
-    border-radius: 5px;
+    /*background-color: #Fb4437;*/
     color: #Fb4437;
 }
 
@@ -79,22 +81,7 @@ table thead th {
 .button-a:hover, .button-a:active, .button-a:focus {
     cursor: pointer !important;
     text-decoration: none;
-} 
-
-/***********************/
-.create-button {
-    display: inline-block;
-    padding: 3px 10px;
-    text-align: center;
-    border: 1px solid #BBBBBB;
-    background-color: #009688;
-    color: #FFFFFF;
-    text-decoration: none !important;
-}
-
-.create-button:hover {
-    color: #DFDF09;
-    text-decoration: none !important;
+    /*color: #EEEEEE;*/
 }
 
 .page {

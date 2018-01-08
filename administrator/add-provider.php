@@ -1,9 +1,15 @@
 <?php
 include 'include.php';
+$_SESSION['task'] = 'providers';
 include 'header.php';
 ?>
 
 <?php
+$page_return = 1;
+if (isset($_GET['page'])) {
+    $page_return = $_GET['page'];
+}
+
 $provider_id = $pro_name = $pro_address = $pro_email = $pro_website = $pro_phone = "";
 $pro_nameErr = $pro_addressErr = $pro_emailErr = $pro_phoneErr = FALSE;
 $isErr = FALSE;
@@ -68,6 +74,10 @@ if ($_SERVER["REQUEST_METHOD"] == 'POST') {
     if (isset($_POST['website'])) {
         $pro_website = standardize_data($_POST['website']);
     }
+    
+    if(!empty($_POST['page_return'])) {
+        $page_return = $_POST['page_return'];
+    }
 
 
 
@@ -91,14 +101,24 @@ if ($_SERVER["REQUEST_METHOD"] == 'POST') {
             if ($stmt->execute()) {
                 $_SESSION['notify'] = "Thêm nhà cung cấp thành công";
             } else {
-                $_SESSION['notify'] = "LỖI! Không thể thêm mới nahf cung cấp!";
+                $_SESSION['notify'] = "LỖI! Không thể thêm mới nhà cung cấp!";
             }
         }
-        echo '<script>window.location.href = "./providers.php"</script>';
+        echo '<script>window.location.href = "./providers.php?page=' . $page_return . '"</script>';
     }
 }
 // End Create category case
 ?>
+
+<div class="row-fluid">
+    <div class="span12">
+        <ul class="breadcrumb">
+            <li><a href="./index.php"><i class="icon-home" style="font-size: 18px; width: 30px;"></i></a><span class="divider">&nbsp;</span></li>
+            <li><a href="./providers.php<?php if(isset($_GET['page'])) echo '?page='.$_GET['page']; ?>">Nhà cung cấp</a><span class="divider">&nbsp;</span></li>
+            <li><a href="#"><?php if(isset($_GET['provider_id'])) echo 'Chỉnh sửa'; else echo 'Thêm mới'; ?></a><span class="divider-last">&nbsp;</span></li>
+        </ul>
+    </div>
+</div>
 
 <div id="page" class="dashboard">
     <div class="row-fluid">
@@ -167,6 +187,11 @@ if ($_SERVER["REQUEST_METHOD"] == 'POST') {
                             <div class="col-sm-10">
                                 <input type="text" class="form-control" id="website" name="website" value="<?php echo $pro_website; ?>">
                             </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <input type="hidden" id="page_return" name="page_return"
+                                   value="<?php echo $page_return ?>">
                         </div>
 
                         <div class="form-group">

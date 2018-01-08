@@ -127,7 +127,7 @@
                     </li>
 
                     <li class="has-sub <?php if(isset($_SESSION['task']) && $_SESSION['task'] == 'users') echo 'active';?>">
-                        <a href="./users.php" class=""><span class="icon-box"><i class="icon-group"></i></span>
+                        <a href="javascript:;" class=""><span class="icon-box"><i class="icon-group"></i></span>
                             Tài khoản người dùng 
                         </a>
                     </li>
@@ -176,6 +176,18 @@
                                     }
                                 ?>
                             </h3>
-                            
+                            <ul class="breadcrumb">
+                                <li><a href="#"><i class="icon-home"></i></a><span class="divider">&nbsp;</span></li>
+                                <li><a href="#">Admin Lab</a><span class="divider">&nbsp;</span></li>
+                                <li><a href="#">Dashboard</a><span class="divider-last">&nbsp;</span></li>
+                                <li class="pull-right search-wrap">
+                                    <form class="hidden-phone" />
+
+                                    <div class="search-input-area">
+                                        <input id=" " class="search-query" type="text" placeholder="Search" />
+                                        <i class="icon-search" style="padding-right: 15px"></i></div>
+                                    </form>
+                                </li>
+                            </ul>
                         </div>
                     </div>
