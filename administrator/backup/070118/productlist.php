@@ -5,20 +5,25 @@ include 'header.php';
 ?>
 
 <div id="page" class="dashboard">
-<!--    <div class="alert alert-info">
-        <button data-dismiss="alert" class="close">×</button>
-        Welcome to the <strong>Admin Lab</strong> Theme. Please don't forget to check all the pages! 
-    </div>-->
+    <!--    <div class="alert alert-info">
+            <button data-dismiss="alert" class="close">×</button>
+            Welcome to the <strong>Admin Lab</strong> Theme. Please don't forget to check all the pages! 
+        </div>-->
     <?php
     if (isset($_SESSION['notify'])) {
         ?>
-        <div class="alert alert-info">
+        <div class="alert alert-success" id="notify">
             <button data-dismiss="alert" class="close">×</button>
             <?php
-                    echo $_SESSION['notify'];
-                    unset($_SESSION['notify']);
+            echo $_SESSION['notify'];
+            unset($_SESSION['notify']);
             ?>
         </div>
+        <script>
+            $(document).ready(function () {
+                $('#notify').delay(5000).fadeOut();
+            });
+        </script>
         <?php
     }
     ?>
@@ -43,7 +48,7 @@ include 'header.php';
                 <?php
                 $rows_result = mysqli_query($connect, "SELECT id FROM products");
                 $rows_no = mysqli_num_rows($rows_result);
-                $rows_per_page = 10;
+                $rows_per_page = 20;
                 $pages_no = intval(($rows_no - 1) / $rows_per_page) + 1;
 
                 $page_curent = isset($_GET['p']) ? $_GET['p'] : 1;
@@ -51,14 +56,24 @@ include 'header.php';
                     $page_curent = 1;
                 $start = ($page_curent - 1) * $rows_per_page;
 
-                $pr = mysqli_query($connect, "SELECT * FROM products WHERE is_active = 1 ORDER BY id LIMIT $start,$rows_per_page");
+//                $pr = mysqli_query($connect, "SELECT * FROM products WHERE is_active = 1 ORDER BY id LIMIT $start,$rows_per_page");
+                $pr = mysqli_query($connect, "SELECT p.*, c.name AS cname, pro.name AS proname FROM products AS p "
+                        . "INNER JOIN categories AS c ON p.category_id = c.id "
+                        . "INNER JOIN providers AS pro ON p.provider_id = pro.id "
+                        . "WHERE p.is_active = '1' ORDER BY p.id LIMIT $start,$rows_per_page ");
+//                if ($pr) {
+//                    echo '<script> alert("OK") </script>';
+//                } else {
+//                    echo '<script> alert("'. var_dump($pr).'") </script>';
+//                }
+                $num = 0;
                 ?>
 
                 <div class="widget-body">
                     <table class="table table-condensed table-striped table-hover no-margin">
                         <thead>
                             <tr>
-                                <th type="hidden"></th>
+                                <!--<th style="display: none"></th>-->
                                 <th>STT</th>
                                 <th>Tên sản phẩm</th>
                                 <th>Danh mục</th>
@@ -67,29 +82,19 @@ include 'header.php';
                                 <th>Trọng lượng</th>
                                 <th>Giá</th>
                                 <th>Mô tả</th>
-                                <th>Hành động</th>
+                                <th style="width: 190px">Hành động</th>
                             </tr>
                         </thead>
                         <tbody>
                             <?php
                             while ($p = mysqli_fetch_array($pr)) {
-                                $categoryid = $p['category_id'];
-                                $provider_id = $p['provider_id'];
-
-                                $pr1 = mysqli_query($connect, "select name from categories where id=$categoryid ");
-                                while ($p1 = mysqli_fetch_array($pr1)) {
-                                    $categ = $p1['name'];
-                                }
-                                $pr2 = mysqli_query($connect, "select name from providers where id=$provider_id ");
-                                while ($p2 = mysqli_fetch_array($pr2)) {
-                                    $provider_name = $p2['name'];
-                                }
                                 ?>
                                 <tr>
-                                    <td><?php echo $p['id'] ?></td>
-                                    <td><?php echo $categ; ?></td>
-                                    <td><?php echo $provider_name ?></td>
-                                    <td><?php echo $p['name'] ?></td>
+                                    <!--<td style="display: none"><?php echo $p['id'] ?></td>-->
+                                    <td><?php echo ++$num ?></td>
+                                    <td><?php echo $p['name']; ?></td>
+                                    <td><?php echo $p['proname'] ?></td>
+                                    <td><?php echo $p['cname'] ?></td>
                                     <td><?php echo $p['quantity'] ?></td>
                                     <td><?php echo $p['weight'] ?></td>
                                     <td><?php echo $p['price'] ?></td>
@@ -97,8 +102,8 @@ include 'header.php';
                                     <td>
     <!--                                        <a href="addproduct.php?i=<?php echo $p['id'] ?>" >Chỉnh sửa</a>&nbsp;&nbsp;-->
     <!--                                        <a href="products.php?delete=<?php echo $p['id'] ?>" >Xóa</a>-->
-                                        <a onclick="testA()">Chỉnh sửa</a>&nbsp;&nbsp;
-                                        <a onclick="addNotifier(<?php echo $p["id"] ?>)">Xóa</a>
+                                        <a class="button-a edit-button" href="create-product.php?pid=<?php echo $p['id']?>">Chỉnh sửa</a>&nbsp;&nbsp;
+                                        <a class="button-a delete-button" onclick="addNotifier(<?php echo $p["id"] ?>)">Xóa</a>
                                     </td>
                                 </tr>
                                 <?php

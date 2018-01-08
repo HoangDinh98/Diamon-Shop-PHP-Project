@@ -1,6 +1,6 @@
 <?php
 include 'include.php';
-$_SESSION['task'] = 'categories';
+$_SESSION['task'] = 'promotions';
 include 'header.php';
 //include 'product-action.php';
 ?>
@@ -9,7 +9,7 @@ include 'header.php';
     <div class="span12">
         <ul class="breadcrumb">
             <li><a href="./index.php"><i class="icon-home" style="font-size: 18px; width: 30px;"></i></a><span class="divider">&nbsp;</span></li>
-            <li><a href="#">Danh mục sản phẩm</a><span class="divider-last">&nbsp;</span></li>
+            <li><a href="#">Khuyến mãi</a><span class="divider-last">&nbsp;</span></li>
         </ul>
     </div>
 </div>
@@ -34,7 +34,7 @@ include 'header.php';
     }
     ?>
     <div>
-        <a class="create-button" href="./add-category.php">Thêm danh mục</a>
+        <a class="create-button" href="./add-promotion.php">Thêm mới khuyến mãi</a>
     </div>
 
 
@@ -42,7 +42,7 @@ include 'header.php';
         <div class="span12">
             <div class="widget">
                 <?php
-                $rows_result = mysqli_query($connect, "SELECT id FROM categories WHERE is_active = 1");
+                $rows_result = mysqli_query($connect, "SELECT id FROM promotions WHERE is_active = 1");
                 $rows_no = mysqli_num_rows($rows_result);
                 $rows_per_page = 10;
                 $pages_no = intval(($rows_no - 1) / $rows_per_page) + 1;
@@ -54,8 +54,8 @@ include 'header.php';
 
                 $num = $rows_per_page * ($page_curent - 1);
 
-                $query_execute = mysqli_query($connect, "SELECT id, name, parent_id "
-                        . "FROM categories WHERE is_active = 1 ORDER BY id DESC LIMIT $start,$rows_per_page ");
+                $query_execute = mysqli_query($connect, "SELECT id, value, description "
+                        . "FROM promotions WHERE is_active = '1' ORDER BY value ASC LIMIT $start,$rows_per_page ");
                 ?>
 
                 <div class="widget-body">
@@ -64,8 +64,8 @@ include 'header.php';
                             <tr>
                                 <!--<th style="display: none"></th>-->
                                 <th>STT</th>
-                                <th>Tên</th>
-                                <th>Chứa trong danh mục</th>
+                                <th>Giá trị khuyến mãi</th>
+                                <th>Mô tả</th>
                                 <th>Hành động</th>
                             </tr>
                         </thead>
@@ -75,21 +75,11 @@ include 'header.php';
                                 ?>
                                 <tr>
                                     <td><?php echo ++$num ?></td>
-                                    <td><?php echo $query_result['name'] ?></td>
-                                    <td><?php
-                                        //Test if parent_id == 0 then show "Root category" else find out Mother category
-                                        if ($query_result['parent_id'] == 0) {
-                                            echo 'Danh mục gốc';
-                                        } else {
-                                            $parent_id_tmp = $query_result['parent_id'];
-                                            $query_tmp = mysqli_query($connect, "SELECT name FROM categories WHERE id = $parent_id_tmp");
-                                            $result_tmp = mysqli_fetch_array($query_tmp);
-                                            echo $result_tmp['name'];
-                                        }
-                                        ?>
-                                    </td>
+                                    <td><?php echo $query_result['value'] . ' %' ?></td>
+                                    <td><?php echo $query_result['description'] ?></td>
                                     <td>
-                                        <a class="button-a edit-button" href="add-category.php?category_id=<?php echo $query_result['id'] ?>&page=<?php echo $page_curent ?>"><i class="icon-edit"></i></a>&nbsp;
+                                        <a class="button-a edit-button" 
+                                           href="add-promotion.php?promotion_id=<?php echo $query_result['id'] ?>&page=<?php echo $page_curent ?>"><i class="icon-edit"></i></a>&nbsp;
                                         <a class="button-a delete-button" onclick="addNotifier(<?php echo $query_result["id"] . ', ' . $page_curent ?>)"><i class="icon-trash"></i></a>
                                     </td>
                                 </tr>
@@ -106,13 +96,13 @@ include 'header.php';
                         echo "Pages: ";
                         if ($page_curent >= 1) {
                             if ($page_curent > 1) {
-                                echo "<a href='categories.php?page=1' class=\"page-direct\" ><<</a>";
-                                echo "<a href='categories.php?page=" . ($page_curent - 1) . "' class=\"page-direct\"><</a>";
+                                echo "<a href='promotions.php?page=1' class=\"page-direct\" ><<</a>";
+                                echo "<a href='promotions.php?page=" . ($page_curent - 1) . "' class=\"page-direct\"><</a>";
                             }
 
                             for ($i = 1; $i <= $pages_no; $i++) {
                                 ?>
-                                <a href='categories.php?page=<?php echo $i ?>' 
+                                <a href='promotions.php?page=<?php echo $i ?>' 
                                    class="page <?php
                                    if ($page_curent == $i) {
                                        echo 'page-active';
@@ -124,8 +114,8 @@ include 'header.php';
                             }
                         }
                         if ($page_curent < $pages_no) {
-                            echo "<a href='categories.php?page=" . ($page_curent + 1) . "' class=\"page-direct\" >></a>";
-                            echo "<a href='categories.php?page=$pages_no' class=\"page-direct\" >>></a>";
+                            echo "<a href='promotions.php?page=" . ($page_curent + 1) . "' class=\"page-direct\" >></a>";
+                            echo "<a href='promotions.php?page=$pages_no' class=\"page-direct\" >>></a>";
                         }
                     }
                     ?>
@@ -134,6 +124,7 @@ include 'header.php';
         </div>
     </div>
 </div>
+
 <script>
     function addNotifier(id, page_return) {
         var notifier = $.Notifier("Cảnh báo",
@@ -147,7 +138,7 @@ include 'header.php';
                             label: "OK",
                             type: "success",
                             onClick: function () {
-                                window.location.href = "action.php?category_delete_id=" + id + "&page=" + page_return;
+                                window.location.href = "action.php?promotion_delete_id=" + id + "&page=" + page_return;
                                 return true;
                             }
                         },
@@ -170,5 +161,3 @@ include 'header.php';
 <?php
 include 'footer.php';
 ?>
-
-

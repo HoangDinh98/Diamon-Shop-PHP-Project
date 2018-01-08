@@ -1,9 +1,11 @@
 <?php
 include 'include.php';
+$_SESSION['task'] = 'categories';
 include 'header.php';
 ?>
 
 <?php
+$page_return = 1;
 $category_id = $category_name = $category_nameErr = $parent_id = $parent_name = "";
 $isErr = FALSE;
 
@@ -17,6 +19,10 @@ if (isset($_GET['category_id'])) {
     $parent_id = intval($query_result['parent_id']);
 }
 //End Edit case
+if (isset($_GET['page'])) {
+    $page_return = $_GET['page'];
+}
+
 //Start Create Category case
 if ($_SERVER["REQUEST_METHOD"] == 'POST') {
     if (empty($_POST['name'])) {
@@ -26,9 +32,13 @@ if ($_SERVER["REQUEST_METHOD"] == 'POST') {
         $category_name = $_POST['name'];
         $parent_id = intval($_POST['parent_category']);
     }
-    
+
     if (isset($_POST['category_id'])) {
         $category_id = $_POST['category_id'];
+    }
+    
+    if(!empty($_POST['page_return'])) {
+        $page_return = $_POST['page_return'];
     }
 
     if (!$isErr) {
@@ -54,11 +64,25 @@ if ($_SERVER["REQUEST_METHOD"] == 'POST') {
                 $_SESSION['notify'] = "LỖI! Không thể thêm danh mục!";
             }
         }
-        echo '<script>window.location.href = "./categories.php"</script>';
+        echo '<script>window.location.href = "./categories.php?page='.$page_return.'"</script>';
     }
 }
 // End Create category case
 ?>
+
+<div class="row-fluid">
+    <div class="span12">
+        <ul class="breadcrumb">
+            <li><a href="./index.php"><i class="icon-home" style="font-size: 18px; width: 30px;"></i></a><span class="divider">&nbsp;</span></li>
+            <li><a href="./categories.php<?php if (isset($_GET['page'])) echo '?page=' . $_GET['page']; ?>">Danh mục sản phẩm</a><span class="divider">&nbsp;</span></li>
+            <li><a href="#"><?php if (isset($_GET['category_id']))
+    echo 'Chỉnh sửa';
+else
+    echo 'Thêm mới';
+?></a><span class="divider-last">&nbsp;</span></li>
+        </ul>
+    </div>
+</div>
 
 <div id="page" class="dashboard">
     <div class="row-fluid">
@@ -100,9 +124,9 @@ if ($_SERVER["REQUEST_METHOD"] == 'POST') {
                                         while ($query_result = mysqli_fetch_array($query_execute)) {
                                             ?>
                                             <option value="<?php echo $query_result['id'] ?>">
-                                                <?php
-                                                echo $query_result['name'];
-                                                ?>
+                                            <?php
+                                            echo $query_result['name'];
+                                            ?>
                                             </option>
                                             <?php
                                         }
@@ -112,11 +136,11 @@ if ($_SERVER["REQUEST_METHOD"] == 'POST') {
                                         while ($query_result = mysqli_fetch_array($query_execute)) {
                                             ?>
                                             <option value="<?php echo $query_result['id'] ?>"
-                                                    <?php if ($parent_id == $query_result['id']) echo 'selected="true"'; ?>>
+                                                <?php if ($parent_id == $query_result['id']) echo 'selected="true"'; ?>>
 
-                                                <?php
-                                                echo $query_result['name'];
-                                                ?>
+                                            <?php
+                                            echo $query_result['name'];
+                                            ?>
                                             </option>
                                             <?php
                                         }
@@ -124,6 +148,10 @@ if ($_SERVER["REQUEST_METHOD"] == 'POST') {
                                     ?>
                                 </select>
                             </div>
+                        </div>
+                        <div class="form-group">
+                            <input type="hidden" id="page_return" name="page_return"
+                                   value="<?php echo $page_return ?>">
                         </div>
 
                         <div class="form-group">
