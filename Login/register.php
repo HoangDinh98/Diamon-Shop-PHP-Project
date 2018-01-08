@@ -125,7 +125,7 @@ if (isset($_POST["submit"])) {
         <div class="row">
             <div class="col-md-6 col-sm-12 col-lg-6 col-md-offset-3">
                 <div class="panel panel-primary">
-                    <div class="panel-heading">Enter Your Details Here
+                    <div class="panel-heading">Nhập thông tin để đăng kí
                     </div>
                     <div class="panel-body">
                         <form id="register-form" method="POST" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>">
@@ -177,6 +177,8 @@ if (isset($_POST["submit"])) {
                         </form>
                     </div>
                 </div>
+                <a href="login.php" class="text-center new-account">Sử dụng tài khoản đã có? Đăng nhập tại đây!</a>
+                <a href="../demo.php" class="text-center new-account">Quay lại trang chủ</a>
             </div>
         </div>
     </body>

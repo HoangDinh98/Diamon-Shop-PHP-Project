@@ -36,7 +36,8 @@ include 'action_login.php';
                             <a href="#" class="pull-right need-help">Need help? </a><span class="clearfix"></span>
                         </form>
                     </div>
-                    <a href="register.php" class="text-center new-account">Create an account </a>
+                    <a href="register.php" class="text-center new-account">Bạn chưa có tài khoản? Đăng kí tại đây! </a>
+                    <a href="../demo.php" class="text-center new-account" >Quay lại trang chủ</a>
                 </div>
             </div>
         </div>
