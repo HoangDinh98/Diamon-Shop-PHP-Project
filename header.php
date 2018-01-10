@@ -29,7 +29,7 @@
         <div id="top-bar" class="container">
             <div class="row">
                 <div class="span4">
-                    <a href="index.html" class="logo pull-left">
+                    <a href="demo.php" class="logo pull-left">
                     <img src="./asset/themes/images/logo_1.png" class="site_logo" alt=""></a>
                     
                 </div>
@@ -69,7 +69,7 @@
                         </td>
                         <td>
 <!--                            cần thêm hình ảnh icon search vào-->
-<input type="submit" name="search" style="background-image: url(./asset/images/iconsearch4.jpg); width: 50%; height: 100%;">
+<input type="submit" value="" name="search" style="background-image: url(./asset/images/iconsearch4.jpg); width: 50%; height: 100%;">
                         </td>
                                 </tr>
                             </table>
