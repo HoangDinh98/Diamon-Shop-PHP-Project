@@ -64,12 +64,12 @@
                             <table>
                                 <tr>
                                     <td>
-                        <input type="text" class="input-block-level search-query" Placeholder="eg. T-sirt"
+                        <input type="text" class="input-block-level search-query" Placeholder="Nhập thông tin cần tìm"
                                style="color: black;" name="searchtext">
                         </td>
                         <td>
 <!--                            cần thêm hình ảnh icon search vào-->
-                            <input type="submit" name="search" style="background-image: url(./asset/images/iconseach.png); width: 20%; height: 20%;">
+<input type="submit" name="search" style="background-image: url(./asset/images/iconsearch4.jpg); width: 50%; height: 100%;">
                         </td>
                                 </tr>
                             </table>
@@ -94,7 +94,7 @@
                                             $scats = mysqli_query($connect, "SELECT * FROM categories WHERE parent_id=$c[id]");
                                             while ($sc = mysqli_fetch_array($scats)) {
                                                 ?>
-                                            <li><a href="./products.php"><?php echo $sc['name'] ?></a></li>
+                                        <li><a href="products_list.php?pi=<?php echo $sc['id'] ?>"><?php echo $sc['name'] ?></a></li>
                                             <?php
                                         }
                                         ?>

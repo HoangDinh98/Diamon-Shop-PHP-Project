@@ -10,6 +10,19 @@ if ($_POST ['search']) {
     $query_search = mysqli_query($connect, $sql_search);
 }
 ?>
+ <?php 
+ if (isset($_REQUEST['search'])) 
+        {
+            // Gán hàm addslashes để chống sql injection
+            $search = addslashes($_POST['searchtext']);
+ 
+            // Nếu $search rỗng thì báo lỗi, tức là người dùng chưa nhập liệu mà đã nhấn submit.
+            if (empty($search)) {
+                include 'content.php';
+            } 
+            else
+            {
+              ?>
 
 <section  class="homepage-slider" id="home-slider">
     <div class="flexslider">
@@ -23,19 +36,8 @@ if ($_POST ['search']) {
         </ul>
     </div>			
 </section>
- <?php 
- if (isset($_REQUEST['search'])) 
-        {
-            // Gán hàm addslashes để chống sql injection
-            $search = addslashes($_POST['searchtext']);
- 
-            // Nếu $search rỗng thì báo lỗi, tức là người dùng chưa nhập liệu mà đã nhấn submit.
-            if (empty($search)) {
-                echo "Yeu cau nhap du lieu vao o trong";
-            } 
-            else
-            {
-              ?>
+<section class="main-content">
+
 
     <?php if ($count = mysqli_num_rows($query_search) == 0) { ?>
         <div>
@@ -66,8 +68,8 @@ if ($_POST ['search']) {
                                     <li class="span3">
                                         <div class="product-box">
                                             <span class="sale_tag"></span>
-                                             <a href="product_detail.php?i=<?php echo $dong_search['product_id'] ?>">
-                                                <p><img src='<?php echo $img; ?>' alt="" /></p>
+                                             <a href="product_detail.php?i=<?php echo $dong_search['id'] ?>">
+                                                 <p><img src='<?php echo $img; ?>' alt="" /></p>
                                                 <p class="title"><?php echo $dong_search['name']; ?></p>          
                                                 <p class="price"><?php
                             if ($dong_search['price'] > 0) {
@@ -75,7 +77,7 @@ if ($_POST ['search']) {
                                 echo(" VND");
                             } else
                                 echo(" Please Call!");
-                                    ?></p>
+                                    ?></p> 
                                             </a>
                                             <div>
                                                 <input type="submit" value="Thêm vào giỏ hàng">
@@ -92,8 +94,6 @@ if ($_POST ['search']) {
             </div>							
         </div>
         <?php
-    }
-    }
     }
     ?>
     <!--phân trang-->
@@ -145,8 +145,7 @@ if ($_POST ['search']) {
             </div>
         </div>	
     </div>		
-</div>				
-</div>
+				
 <!--			</section>-->
 <section class="our_client">
     <h4 class="title"><span class="text">Manufactures</span></h4>
@@ -169,11 +168,15 @@ if ($_POST ['search']) {
         <div class="span2">
             <a href="#"><img alt="" src="./asset/themes/images/clients/4.png"></a>
         </div>
-
     </div>
     </section> 
-            <?php
+</section>
+<?php
+            }
+        }
+?>
+  <?php
         include 'footer.php';
-        ?>
+  ?>  
      
 

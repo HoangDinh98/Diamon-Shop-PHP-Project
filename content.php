@@ -32,7 +32,7 @@
                                         $rows_per_page = 4;
                                         $pages_no = intval(($rows_no - 1) / $rows_per_page) + 1;
 
-                                        $page_curent = isset($_GET['p']) ? $_GET['p'] : 1;
+                                        $page_curent = isset($_POST['p']) ? $_POST['p'] : 1;
                                         if (!$page_curent)
                                             $page_curent = 1;
                                         $start = ($page_curent - 1) * $rows_per_page;
@@ -49,7 +49,7 @@
                                             $pt = mysqli_fetch_array($ptr);
                                             $img = $pt['path'];
                                             if (!file_exists($img))
-                                                $img = "./asset/images/ladies/daychuyen2.jpg";
+                                                $img = "./asset/images/products/watch/watch1.jpg";
                                             ?>
 
 
