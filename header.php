@@ -24,6 +24,8 @@
         <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
         <script src="js/respond.min.js"></script>
         <![endif]-->
+        <link href="./asset/font/font-awesome-4.7.0/css/font-awesome.css" rel="stylesheet">
+        
     </head>
     <body>		
         <div id="top-bar" class="container">

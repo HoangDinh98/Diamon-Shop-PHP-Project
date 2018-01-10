@@ -1,0 +1,146 @@
+a:hover{
+    cursor: pointer !important;
+}
+
+.stickcart {
+    position: fixed;
+    right: 1%;
+    top: 65px;
+    background: #fff;
+    border-radius: 40px;
+    box-shadow: 5px 10px 10px 0 rgba(0,0,0,.5);
+    font-size: 14px;
+    color: #288ad6;
+    padding: 0 10px 0 0;
+    /*width: 140px;*/
+    z-index: 99;
+}
+
+.stickcart div {
+    float: left;
+    width: 38px;
+    height: 38px;
+    border-radius: 40px;
+    background: #ffde31;
+    margin: 2px 5px 2px 2px;
+    font-size: 25px;
+    color: #000000;
+    text-align: center;
+    line-height: 1.5;
+}
+
+/*.stickcart span {
+  display: block;
+  padding: 4px 0 0;
+  white-space: nowrap;
+}*/
+
+.stickcart strong {
+    display: block;
+    white-space: nowrap;
+}
+
+.stickcart .p-num {
+    display: inline-block;
+    min-width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background-color: #EF1212;
+    color: #EFEF02;
+    text-align: center;
+    font-family: arial;
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 1.5;
+    margin-left: -15px;
+}
+
+/*EDIT FOR PRODUCT BOX*/
+
+.product-box .title{
+    margin: 10px 0px 0px 0px;
+}
+
+.product-box p.price {
+    padding: 0px;
+    margin: 5px 0px;
+    text-transform: none;
+}
+
+.product-box p.price .official-price-box {
+    display: block;
+    color: #EF1212;
+    font-size: 15px;
+}
+
+
+/*EDIT FOR CART DETAIL*/
+/*************************/
+table tr {
+    font-size: 14px;
+}
+
+.number-box {
+    text-align: right !important;
+}
+
+.remove-product {
+    display: block;
+    width: 50%;
+    float: right;
+    text-align: center;
+    font-size: 18px;
+}
+
+.product-num-box {
+    width: 100px;
+    margin: 0 auto;
+}
+
+.product-num {
+    display: inline-block;
+    width: 50px;
+    box-sizing: border-box;
+    border: 1px solid #AFAFAF;
+    margin: 0 -4px;
+    padding-right: 2px;
+}
+
+.change-num-direct {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 1px solid #AFAFAF;
+    text-align: center;
+}
+
+.change-num-direct:hover, .change-num-direct:visited {
+    cursor: pointer;
+    background-color: #CFCFCF;
+}
+
+.change-num-direct:active{
+    transition: 0.5;
+    background-color: #AFAF12;
+}
+
+.line-block {
+    margin: 10px 0px;
+    padding: 5px 0px;
+    border-bottom: 1px solid #AFAFAF;
+    font-size: 14px;
+}
+
+.line-block .float-left {
+    float: left;
+}
+
+.line-block .float-right {
+    display: inherit;
+}
+
+.line-block b {
+    font-size: 16px;
+}
+
+

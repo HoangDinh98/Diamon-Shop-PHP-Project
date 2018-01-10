@@ -1,19 +1,4 @@
-<?php // include 'include.php';         ?>
-<?php
-// time is second
-$session_timeout = 100;
-
-if (!isset($_SESSION['last_visit'])) {
-    $_SESSION['last_visit'] = time();
-} // I like brackets!
-
-if ((time() - $_SESSION['last_visit']) > $session_timeout) {
-//    session_destroy();
-    unset($_SESSION['product']);
-}
-
-$_SESSION['last_visit'] = time();
-?>
+<?php include 'include.php'; ?>
 <section  class="homepage-slider" id="home-slider">
     <div class="flexslider">
         <ul class="slides">
@@ -47,14 +32,15 @@ $_SESSION['last_visit'] = time();
                                         $rows_per_page = 4;
                                         $pages_no = intval(($rows_no - 1) / $rows_per_page) + 1;
 
-                                        $page_curent = isset($_GET['p']) ? $_GET['p'] : 1;
+                                        $page_curent = isset($_POST['p']) ? $_POST['p'] : 1;
                                         if (!$page_curent)
                                             $page_curent = 1;
                                         $start = ($page_curent - 1) * $rows_per_page;
 
-                                        $prs = mysqli_query($connect, " SELECT products.id AS id , promotions.value AS promotion,  name, price 
-                                                    FROM products JOIN promotions ON products.promotion_id = promotions.id
-                                                    ORDER BY products.id DESC LIMIT $start,$rows_per_page");
+                                        $prs = mysqli_query($connect, " SELECT id , name, price FROM products
+                                                            
+                                                            limit $start,$rows_per_page
+                                                                ");
 
                                         while ($pr = mysqli_fetch_array($prs)) {
 
@@ -63,41 +49,28 @@ $_SESSION['last_visit'] = time();
                                             $pt = mysqli_fetch_array($ptr);
                                             $img = $pt['path'];
                                             if (!file_exists($img))
-                                                $img = "./asset/images/ladies/daychuyen2.jpg";
+                                                $img = "./asset/images/products/watch/watch1.jpg";
                                             ?>
 
 
                                             <li class="span3">
 
                                                 <div class="product-box">
-                                                    <a style="display: block" href="product_detail.php?i=<?php echo $pr['id'] ?>">
-                                                        <span class="sale_tag" style="color: #FF0000;">
-                                                            <?php
-                                                            if($pr['promotion']>0)
-                                                                echo "- ".$pr['promotion']." %";
-                                                            ?>
-                                                        </span>
-                                                        <img src='<?php echo $img; ?>' alt="" >
-                                                        <p class="title"><?php echo $pr['name']; ?></p>
-                                                        <!--<p class="category">Phong cách thể thao</p>-->
-                                                        <p class="price">
-                                                            <?php
-                                                            
-                                                            if($pr['promotion']>0) {
-                                                                ?>
-                                                                <span><del><?php echo $pr['price'].' đ' ?></del></span>
-                                                                <span class="official-price-box">
-                                                                    <?php echo round(($pr['price']*(1-$pr['promotion']/100)), 0). " đ" ?>
-                                                                </span>
-                                                                <?php
-                                                            } else {
-                                                                echo '<span>'.$pr['price'].' đ</span>';
-                                                            }
-                                                            ?>
-                                                        </p>
+                                                    <span class="sale_tag"></span>
+                                                    <a href="product_detail.php?i=<?php echo $pr['id'] ?>">
+                                                        <p> <img src='<?php echo $img; ?>' alt="" /></p>
+                                                        <p  class="title"><?php echo $pr['name']; ?></p>
+                                                        <p class="price"><?php
+                                                            if ($pr['price'] > 0) {
+                                                                echo($pr['price']);
+                                                                echo(" VND");
+                                                            } else
+                                                                echo(" Please Call!");
+                                                            ?></p>
                                                     </a>
-                                                    <input type="button" name="add_cart" class="add_cart" data-pid="<?php echo $pr['id'] ?>" value="Thêm vào giỏ hàng">
-                                                    <!--<input type="hidden" id="promotion-<?php echo $pr['id']?>" value="<?php echo $pr['promotion'] ?>">-->
+                                                    <div>
+                                                        <input type="submit" value="Thêm vào giỏ hàng">
+                                                    </div>
                                                 </div>
                                             </li>
 
@@ -153,17 +126,20 @@ $_SESSION['last_visit'] = time();
 
                                                         <div class="product-box">
                                                             <span class="sale_tag"></span>
-                                                            <p><a href="product_detail.php?i=<?php echo $pr['id'] ?>"><img src='<?php echo $img; ?>' alt="" /></a></p>
-                                                            <a href="product_detail.php" class="title"><?php echo $pr['name']; ?></a><br/>
-                                                            <a href="product_detail.php" class="category">Phong cách thể thao</a>
-                                                            <p class="price"><?php
-                                                                if ($pr['price'] > 0) {
-                                                                    echo($pr['price']);
-                                                                    echo(" VND");
-                                                                } else
-                                                                    echo(" Please Call!");
-                                                                ?></p>
-                                                            <input type="submit" value="Thêm vào giỏ hàng">
+                                                            <a href="product_detail.php?i=<?php echo $pr['id'] ?>">
+                                                                <p> <img src='<?php echo $img; ?>' alt="" /></p>
+                                                                <p  class="title"><?php echo $pr['name']; ?></p>
+                                                                <p class="price"><?php
+                                                                    if ($pr['price'] > 0) {
+                                                                        echo($pr['price']);
+                                                                        echo(" VND");
+                                                                    } else
+                                                                        echo(" Please Call!");
+                                                                    ?></p>
+                                                            </a>
+                                                            <div>
+                                                                <input type="submit" value="Thêm vào giỏ hàng">
+                                                            </div>
 
                                                         </div>
                                                     </li>
@@ -255,7 +231,6 @@ $_SESSION['last_visit'] = time();
                 <a href="#"><img alt="" src="./asset/themes/images/clients/4.png"></a>
             </div>
         </div>
+
     </section>
 </section>
-
-<?php include './sticky-cart.php'; ?>

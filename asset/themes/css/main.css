@@ -457,9 +457,10 @@ section.navbar{
 	color:#eb4800;
 }
 .product-box p.price{
-	font-size:20px;
-	font-weight:300;
-	padding:10px 0;
+	font-size: 12px;
+	font-weight: 300;
+	padding: 10px 0;
+        height: 40px;
 }
 /* end product box */
 
