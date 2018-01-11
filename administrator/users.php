@@ -36,9 +36,9 @@ include 'header.php';
         <?php
     }
     ?>
-    <div>
+<!--    <div>
         <a class="create-button" href="#">Thêm tài khoản</a>
-    </div>
+    </div>-->
     <!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
     <!-- Show firt table -->
     <div class="row-fluid">

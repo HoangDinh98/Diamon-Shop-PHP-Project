@@ -136,11 +136,11 @@
                             Đơn hàng 
                         </a>
                     </li>
-                    <li class="has-sub <?php if(isset($_SESSION['task']) && $_SESSION['task'] == 'comments') echo 'active';?>">
+<!--                    <li class="has-sub <?php if(isset($_SESSION['task']) && $_SESSION['task'] == 'comments') echo 'active';?>">
                         <a href="./comments.php" class=""><span class="icon-box"><i class="icon-comments"></i></span>
                             Bình luận 
                         </a>
-                    </li>
+                    </li>-->
                 </ul>
             </div>
             <div id="main-content">

@@ -50,7 +50,7 @@ $_SESSION['last_visit'] = time();
                             <th>Hình ảnh</th>
                             <th>Tên</th>
                             <th class="number-box">Giá bán</th>
-                            <th style="text-align: center;">Sô lượng</th>
+                            <th style="text-align: center;">Số lượng</th>
                             <th class="number-box">Thành tiền</th>
                             <th></th>
                         </tr>
