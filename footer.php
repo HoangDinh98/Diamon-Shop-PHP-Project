@@ -45,7 +45,6 @@
 <script src="./asset/js/script.js"></script>
 <script src="./asset/themes/js/common.js"></script>
 <script src="./asset/themes/js/jquery.flexslider-min.js"></script>
-
 <script type="text/javascript">
     $(function () {
         $(document).ready(function () {
@@ -60,6 +59,7 @@
         });
     });
 </script>
+
 </body>
 </html>
 

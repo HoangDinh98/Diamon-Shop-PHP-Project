@@ -1,7 +1,7 @@
 <?php // include 'include.php';         ?>
 <?php
 // time is second
-$session_timeout = 100;
+$session_timeout = 30*60;
 
 if (!isset($_SESSION['last_visit'])) {
     $_SESSION['last_visit'] = time();

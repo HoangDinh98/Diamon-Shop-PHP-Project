@@ -2,6 +2,8 @@
 
 include './include.php';
 
+//echo date("Y-m-d H:i:m");
+
 echo var_dump($_SESSION["product"]);
 if (isset($_SESSION["product"])) {
     foreach ($_SESSION["product"] AS $key => $value) {

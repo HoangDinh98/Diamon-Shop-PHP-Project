@@ -12,5 +12,6 @@ try{
 }catch(MySQLi_Sql_Exception $ex){
 	echo("error in connection");
 }
+date_default_timezone_set('Asia/Ho_Chi_Minh');
 ?>
 

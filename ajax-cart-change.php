@@ -3,6 +3,8 @@
 include './include.php';
 
 $quantity = $price = $promotion = $sumprice = $totalmoney = 0;
+$product_name = "";
+
 //******************************************
 // MINUS PRODUCT
 //Get id of product
@@ -108,7 +110,12 @@ if (isset($_GET['remove_product_id'])) {
     $product_id = $_GET['remove_product_id'];
     $_SESSION['product_num'] -= $_SESSION["product"]["$product_id"]["quantity"];
     unset($_SESSION["product"]["$product_id"]);
-    $_SESSION['notify'] = "Bạn đã xóa sản phẩm khỏi giỏ hàng thành công!";
+    
+    $query_execute = mysqli_query($connect, "SELECT name FROM products WHERE id = $product_id");
+    $query_result = mysqli_fetch_array($query_execute);
+    $product_name = $query_result['name'];
+    
+//    $_SESSION['notify'] = "Bạn đã xóa sản phẩm khỏi giỏ hàng thành công!";
 //    $_SESSION["product"] = array_values($_SESSION["product"]);
     
 //    sleep(1);
@@ -127,6 +134,7 @@ if (isset($_GET['remove_product_id'])) {
 
     $result = array(
         'status' => 1,
+        'productname' => $product_name,
         'sumquantity' => $_SESSION['product_num'],
         'totalmoney' => $totalmoney);
     echo json_encode($result);

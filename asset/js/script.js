@@ -141,7 +141,7 @@ $(document).ready(function () {
                     rtl: false,
                     btns: [
                         {
-                            label: "Xác nhân",
+                            label: "Xác nhận",
                             type: "success",
                             onClick: function () {
 //                                window.location.href = "./ajax-cart-change.php";
@@ -161,11 +161,15 @@ $(document).ready(function () {
                                         $("#temp-money").text(number_format(result.totalmoney) + " đ");
                                         $("#total-money").text(number_format(result.totalmoney) + " đ");
 
+                                        $("#notify-container").empty();
                                         $("#notify-container").append("<div class='alert alert-success'>"
                                                 + "<button data-dismiss='alert' class='close'>×</button>"
-                                                + "Bạn đã xóa sản phẩm khỏi giỏ hàng thành công </div>");
+                                                + "Bạn đã xóa sản phẩm <b>" + result.productname + "</b> thành công </div>");
 //                                        $("#notify-box").text("");
                                         $("#notify-num-box").text(number_format(result.sumquantity));
+                                        if (result.sumquantity <= 0) {
+                                            $("#check-out-container").empty();
+                                        }
                                     }
                                 });
                             }
@@ -180,5 +184,12 @@ $(document).ready(function () {
                 });
     });
 });
+
+$(document).ready(function () {
+    $("#check-out").click(function () {
+        window.location = "checkout.php";
+    });
+});
+
 
     

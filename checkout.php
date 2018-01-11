@@ -1,111 +1,137 @@
 <?php
+
 include './include.php';
 include './header.php';
+include './checkout-validation.php';
 ?>
 <section class="header_text sub">
 <!--    <img class="pageBanner" src="themes/images/pageBanner.png" alt="New products" >-->
     <h4><span>THÔNG TIN ĐẶT HÀNG</span></h4>
+    <p>Vui lòng nhập thông tin vào form dưới đấy<br>
+        Những trường có dấu (*) là bắt buộc
+    </p>
 </section>	
 <section class="main-content">
     <div class="row">
         <div class="span12">
             <div class="accordion-group">
                 <div class="accordion-inner">
-                    <div class="row-fluid">
-                        <div class="span6">
-                            <h4>Thông tin người nhận</h4>
-                            <div class="control-group">
-                                <label class="control-label">Tên</label>
-                                <div class="controls">
-                                    <input type="text" placeholder="" class="input-xlarge">
+                    <form class="row-fluid" id="checkout-form" method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+                        <div class="span6 part-block">
+                            <div class="group-block">
+                                <h4>Thông tin người nhận</h4>
+                                <div class="control-group">
+                                    <label class="control-label"><span class="required"><b>*</b></span> Tên 
+                                        <span class="required">
+                                            <?php
+                                                echo $firstnameErr;
+                                            ?>
+                                        </span>
+                                    </label>
+                                    <div class="controls">
+                                        <input type="text" id="firstname" name="firstname" class="input-xlarge"
+                                               value="<?php echo $firstname; ?>">
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="control-group">
-                                <label class="control-label">Họ</label>
-                                <div class="controls">
-                                    <input type="text" placeholder="" class="input-xlarge">
+                                <div class="control-group">
+                                    <label class="control-label"><span class="required"><b>*</b></span> Họ 
+                                        <span class="required">
+                                            <?php
+                                                echo $lastnameErr;
+                                            ?>
+                                        </span>
+                                    </label>
+                                    <div class="controls">
+                                        <input type="text" id="lastname" name="lastname" class="input-xlarge"
+                                               value="<?php echo $lastname; ?>">
+                                    </div>
+                                </div>					  
+                                <div class="control-group">
+                                    <label class="control-label"><span class="required"><b>*</b></span> Số điện thoại 
+                                        <span class="required">
+                                            <?php
+                                            echo $phoneErr;
+                                            ?>
+                                        </span>
+                                    </label>
+                                    <div class="controls">
+                                        <input type="text" id="phone" name="phone" class="input-xlarge"
+                                               value="<?php echo $phone; ?>">
+                                    </div>
                                 </div>
-                            </div>					  
-                            <div class="control-group">
-                                <label class="control-label">Số điện thoại</label>
-                                <div class="controls">
-                                    <input type="text" placeholder="" class="input-xlarge">
-                                </div>
-                            </div>
-                            <div class="control-group">
-                                <label class="control-label">Email</label>
-                                <div class="controls">
-                                    <input type="text" placeholder="" class="input-xlarge">
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="span6">
-                            <h4>Địa chỉ nhận hàng</h4>
-                            <div class="control-group">
-                                <label class="control-label">Company</label>
-                                <div class="controls">
-                                    <input type="text" placeholder="" class="input-xlarge">
-                                </div>
-                            </div>
-                            <div class="control-group">
-                                <label class="control-label">Company ID:</label>
-                                <div class="controls">
-                                    <input type="text" placeholder="" class="input-xlarge">
-                                </div>
-                            </div>					  
-                            <div class="control-group">
-                                <label class="control-label"><span class="required">*</span> Address 1:</label>
-                                <div class="controls">
-                                    <input type="text" placeholder="" class="input-xlarge">
-                                </div>
-                            </div>
-                            <div class="control-group">
-                                <label class="control-label">Address 2:</label>
-                                <div class="controls">
-                                    <input type="text" placeholder="" class="input-xlarge">
-                                </div>
-                            </div>
-                            <div class="control-group">
-                                <label class="control-label"><span class="required">*</span> City:</label>
-                                <div class="controls">
-                                    <input type="text" placeholder="" class="input-xlarge">
-                                </div>
-                            </div>
-                            <div class="control-group">
-                                <label class="control-label"><span class="required">*</span> Post Code:</label>
-                                <div class="controls">
-                                    <input type="text" placeholder="" class="input-xlarge">
-                                </div>
-                            </div>
-                            <div class="control-group">
-                                <label class="control-label"><span class="required">*</span> Country:</label>
-                                <div class="controls">
-                                    <select class="input-xlarge">
-                                        <option value="1">Afghanistan</option>
-                                        <option value="2">Albania</option>
-                                        <option value="3">Algeria</option>
-                                        <option value="4">American Samoa</option>
-                                        <option value="5">Andorra</option>
-                                        <option value="6">Angola</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="control-group">
-                                <label class="control-label"><span class="required">*</span> Region / State:</label>
-                                <div class="controls">
-                                    <select name="zone_id" class="input-xlarge">
-                                        <option value=""> --- Please Select --- </option>
-                                        <option value="3513">Aberdeen</option>
-                                        <option value="3514">Aberdeenshire</option>
-                                        <option value="3515">Anglesey</option>
-                                        <option value="3516">Angus</option>
-                                        <option value="3517">Argyll and Bute</option>
-                                    </select>
+                                <div class="control-group">
+                                    <label class="control-label">Email</label>
+                                    <div class="controls">
+                                        <input type="text" id="email" name="email" class="input-xlarge"
+                                               value="<?php echo $email; ?>">
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+
+                        <div class="span6 part-block">
+                            <div class="group-block">
+                                <h4>Địa chỉ nhận hàng</h4>
+                                <div class="control-group">
+                                    <label class="control-label"><span class="required"><b>*</b></span> Tỉnh, Thành phố 
+                                        <span class="required">
+                                            <?php
+                                            echo $cityErr;
+                                            ?>
+                                        </span>
+                                    </label>
+                                    <div class="controls">
+                                        <input type="text" id="city" name="city" class="input-xlarge"
+                                               value="<?php echo $city; ?>">
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label"><span class="required"><b>*</b></span> Quận, Huyện 
+                                        <span class="required">
+                                            <?php
+                                            echo $districtErr;
+                                            ?>
+                                        </span>
+                                    </label>
+                                    <div class="controls">
+                                        <input type="text" id="district" name="district" class="input-xlarge"
+                                               value="<?php echo $district; ?>">
+                                    </div>
+                                </div>					  
+                                <div class="control-group">
+                                    <label class="control-label"><span class="required"><b>*</b></span> Phường, Xã, Thị trấn 
+                                        <span class="required">
+                                            <?php
+                                            echo $townErr;
+                                            ?>
+                                        </span>
+                                    </label>
+                                    <div class="controls">
+                                        <input type="text" id="town" name="town" class="input-xlarge"
+                                               value="<?php echo $town; ?>">
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label"><span class="required"><b>*</b></span> Số nhà, Thôn, Xóm 
+                                        <span class="required">
+                                            <?php
+                                            echo $villageErr;
+                                            ?>
+                                        </span>
+                                    </label>
+                                    <div class="controls">
+                                        <input type="text" id="village" name="village" class="input-xlarge"
+                                               value="<?php echo $village; ?>">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="span12" style="margin-left: 0px; text-align: center;">
+                            <input type="submit" name="checkout_submit" id="checkout_submit"
+                                   value="XÁC NHẬN THÔNG TIN VÀ ĐẶT HÀNG">
+                        </div>
+                    </form>
                 </div>
             </div>			
         </div>
@@ -113,6 +139,7 @@ include './header.php';
 </section>
 
 <?php
+
 include './footer.php';
 ?>
 

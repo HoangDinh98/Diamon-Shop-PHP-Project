@@ -23,7 +23,7 @@ $_SESSION['last_visit'] = time();
     <div class = "row">
         <div class = "span9">
             <h4 class = "title"><span class = "text"><strong>GIỎ HÀNG</strong> CỦA BẠN</span></h4>
-
+            
             <div id="notify-container">
                 <?php
                 if (isset($_SESSION['notify'])) {
@@ -42,26 +42,19 @@ $_SESSION['last_visit'] = time();
 
 
             <table class = "table table-striped">
-                <?php
-                if (isset($_SESSION['product']) && $_SESSION['product_num'] > 0) {
-                    ?>
-                    <thead>
-                        <tr>
-                            <th>Hình ảnh</th>
-                            <th>Tên</th>
-                            <th class="number-box">Giá bán</th>
-                            <th style="text-align: center;">Sô lượng</th>
-                            <th class="number-box">Thành tiền</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <?php
-                }
-                ?>
-
+                <thead>
+                    <tr>
+                        <th>Hình ảnh</th>
+                        <th>Tên</th>
+                        <th class="number-box">Giá bán</th>
+                        <th style="text-align: center;">Sô lượng</th>
+                        <th class="number-box">Thành tiền</th>
+                        <th></th>
+                    </tr>
+                </thead>
                 <tbody>
                     <?php
-                    if (isset($_SESSION['product']) && $_SESSION['product_num'] > 0) {
+                    if (isset($_SESSION['product'])) {
                         foreach ($_SESSION['product'] AS $key => $value) {
                             $query = "SELECT price, img.path AS image, prm.value AS promotion, name, price "
                                     . "FROM products AS p JOIN promotions AS prm ON p.promotion_id = prm.id "
@@ -112,23 +105,21 @@ $_SESSION['last_visit'] = time();
                                 }
                             }
                         }
-                    } else {
-                        echo '<tr><td style="font-size: 16px;">Bạn chưa thêm sản phầm nào vào giỏ hàng</td></tr>';
                     }
                     ?>
-<!--                    <tr>
-        <td>&nbsp;
-        </td>
-        <td>&nbsp;
-        </td>
-        <td>&nbsp;
-        </td>
-        <td>&nbsp;
-        </td>
-        <td>&nbsp;
-        </td>
-        <td></td>
-    </tr>-->
+                    <tr>
+                        <td>&nbsp;
+                        </td>
+                        <td>&nbsp;
+                        </td>
+                        <td>&nbsp;
+                        </td>
+                        <td>&nbsp;
+                        </td>
+                        <td>&nbsp;
+                        </td>
+                        <td></td>
+                    </tr>
                 </tbody>
             </table>
         </div>
@@ -156,15 +147,17 @@ $_SESSION['last_visit'] = time();
                     <span class="float-left"><b>Tổng tiền:</b></span>
                     <span class="number-box float-right"><b id="total-money"><?php echo number_format($total_money) . " đ" ?></b></span>
                 </div>
-                <div id="check-out-container">
-                    <?php if (isset($_SESSION['product']) && $_SESSION['product_num'] > 0) { ?>
-                        <input id="check-out" type="button" value="TIẾN HÀNH THANH TOÁN">
-                    <?php } ?>
+                <div>
+                    <input id="check-out" type="button" value="TIẾN HÀNH THANH TOÁN">
                 </div>
             </div>
         </div>
     </div>
 </section>
+
+<script>
+
+</script>
 
 <?php
 include './footer.php';
