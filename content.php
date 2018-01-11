@@ -122,51 +122,65 @@ $_SESSION['last_visit'] = time();
                                     <div class="carousel-inner">
                                         <div class="active item">
                                             <ul class="thumbnails">
-                                                <?php
-                                                $rows_result = mysqli_query($connect, "SELECT id FROM products");
-                                                $rows_no = mysqli_num_rows($rows_result);
-                                                $rows_per_page = 4;
-                                                $pages_no = intval(($rows_no - 1) / $rows_per_page) + 1;
+                                                 <?php
+                                        $rows_result = mysqli_query($connect, "SELECT id FROM products ");
+                                        $rows_no = mysqli_num_rows($rows_result);
+                                        $rows_per_page = 8;
+                                        $pages_no = intval(($rows_no - 1) / $rows_per_page) + 1;
 
-                                                $page_curent = isset($_GET['p']) ? $_GET['p'] : 1;
-                                                if (!$page_curent)
-                                                    $page_curent = 1;
-                                                $start = ($page_curent - 1) * $rows_per_page;
+                                        $page_curent = isset($_GET['p']) ? $_GET['p'] : 1;
+                                        if (!$page_curent)
+                                            $page_curent = 1;
+                                        $start = ($page_curent - 1) * $rows_per_page;
 
-                                                $prs = mysqli_query($connect, " SELECT id , name, price FROM products
-                                                            order by id desc 
-                                                            limit $start,$rows_per_page
-                                                                ");
+                                        $prs = mysqli_query($connect, " SELECT products.id AS id , promotions.value AS promotion,  name, price 
+                                                    FROM products JOIN promotions ON products.promotion_id = promotions.id
+                                                    ORDER BY products.id DESC LIMIT $start,$rows_per_page");
 
-                                                while ($pr = mysqli_fetch_array($prs)) {
+                                        while ($pr = mysqli_fetch_array($prs)) {
 
-                                                    $product_id = $pr['id'];
-                                                    $ptr = mysqli_query($connect, "SELECT * FROM images where product_id = $product_id LIMIT 1");
-                                                    $pt = mysqli_fetch_array($ptr);
-                                                    $img = $pt['path'];
-                                                    if (!file_exists($img))
-                                                        $img = "./asset/images/ladies/daychuyen2.jpg";
-                                                    ?>
+                                            $product_id = $pr['id'];
+                                            $ptr = mysqli_query($connect, "SELECT id, path FROM images where product_id = $product_id LIMIT 1");
+                                            $pt = mysqli_fetch_array($ptr);
+                                            $img = $pt['path'];
+                                            if (!file_exists($img))
+                                                $img = "./asset/images/ladies/daychuyen2.jpg";
+                                            ?>
 
 
-                                                    <li class="span3">
+                                            <li class="span3">
 
-                                                        <div class="product-box">
-                                                            <span class="sale_tag"></span>
-                                                            <p><a href="product_detail.php?i=<?php echo $pr['id'] ?>"><img src='<?php echo $img; ?>' alt="" /></a></p>
-                                                            <a href="product_detail.php" class="title"><?php echo $pr['name']; ?></a><br/>
-                                                            <a href="product_detail.php" class="category">Phong cách thể thao</a>
-                                                            <p class="price"><?php
-                                                                if ($pr['price'] > 0) {
-                                                                    echo($pr['price']);
-                                                                    echo(" VND");
-                                                                } else
-                                                                    echo(" Please Call!");
-                                                                ?></p>
-                                                            <input type="submit" value="Thêm vào giỏ hàng">
-
-                                                        </div>
-                                                    </li>
+                                                <div class="product-box">
+                                                    <a style="display: block" href="product_detail.php?i=<?php echo $pr['id'] ?>">
+                                                        <span class="sale_tag" style="color: #FF0000;">
+                                                            <?php
+                                                            if($pr['promotion']>0)
+                                                                echo "- ".$pr['promotion']." %";
+                                                            ?>
+                                                        </span>
+                                                        <img src='<?php echo $img; ?>' alt="" >
+                                                        <p class="title"><?php echo $pr['name']; ?></p>
+                                                        <!--<p class="category">Phong cách thể thao</p>-->
+                                                        <p class="price">
+                                                            <?php
+                                                            
+                                                            if($pr['promotion']>0) {
+                                                                ?>
+                                                                <span><del><?php echo $pr['price'].' đ' ?></del></span>
+                                                                <span class="official-price-box">
+                                                                    <?php echo round(($pr['price']*(1-$pr['promotion']/100)), 0). " đ" ?>
+                                                                </span>
+                                                                <?php
+                                                            } else {
+                                                                echo '<span>'.$pr['price'].' đ</span>';
+                                                            }
+                                                            ?>
+                                                        </p>
+                                                    </a>
+                                                    <input type="button" name="add_cart" class="add_cart" data-pid="<?php echo $pr['id'] ?>" value="Thêm vào giỏ hàng">
+                                                    <!--<input type="hidden" id="promotion-<?php echo $pr['id']?>" value="<?php echo $pr['promotion'] ?>">-->
+                                                </div>
+                                            </li>
 
 
                                                     <?php
