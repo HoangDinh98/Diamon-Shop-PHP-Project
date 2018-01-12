@@ -122,13 +122,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     label: "OK",
                             type: "success",
                             onClick: function () {
-                            window.location.href = "./demo.php";
+                            window.location.href = "./index.php";
                                     return true;
                             }
                     }
                     ],
                     callback: function () {
-                    window.location.href = "./demo.php";
+                    window.location.href = "./index.php";
                     }
             });
             });

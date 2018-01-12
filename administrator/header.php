@@ -80,7 +80,7 @@
                                     <li><a href="#"><i class="icon-tasks"></i> My Tasks</a></li>
                                     <li><a href="#"><i class="icon-calendar"></i> Calendar</a></li>
                                     <li class="divider"></li>
-                                    <li><a href="./login.html"><i class="icon-key"></i> Log Out</a></li>
+                                    <li><a href="./login/logout.php"><i class="icon-key"></i> Log Out</a></li>
                                 </ul>
                             </li>
                         </ul>

@@ -8,9 +8,9 @@ include 'action_login.php';
     <head>
         <meta charset="UTF-8">
         <title>Document</title>
-        <link rel="stylesheet" href="../asset/bootstrap-3.3.7/css/bootstrap.min.css">
-        <script src="../asset/bootstrap-3.3.7/js/jquery-3.2.1.min.js"></script>
-        <script src="../asset/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="../../asset/bootstrap-3.3.7/css/bootstrap.min.css">
+        <script src="../../asset/bootstrap-3.3.7/js/jquery-3.2.1.min.js"></script>
+        <script src="../../asset/bootstrap-3.3.7/js/bootstrap.min.js"></script>
         <link rel="stylesheet" href="./style.css">
     </head>
     <body>
@@ -28,16 +28,11 @@ include 'action_login.php';
                             <input type="password" class="form-control" name="password" placeholder="Password" value="<?php echo $pass_word; ?>">
                             <span class="error"><?php echo $pass_wordErr; ?></span>
                             <button class="btn btn-lg btn-primary btn-block" type="submit" name="submit">
-                                Đăng nhập</button>
-                            <label class="checkbox pull-left">
-                                <input type="checkbox" value="remember-me">
-                                Ghi nhớ tôi
-                            </label>
+                                Đăng nhập
+                            </button>
                             <!--<a href="#" class="pull-right need-help">Need help? </a><span class="clearfix"></span>-->
                         </form>
                     </div>
-                    <a href="register.php" class="text-center new-account">Bạn chưa có tài khoản? Đăng kí tại đây! </a>
-                    <a href="../demo.php" class="text-center new-account" >Quay lại trang chủ</a>
                 </div>
             </div>
         </div>

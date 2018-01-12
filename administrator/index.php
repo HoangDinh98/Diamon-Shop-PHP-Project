@@ -1,5 +1,6 @@
 <?php
 include 'include.php';
+include './required.php';
 $_SESSION['task'] = 'home';
 include 'header.php';
 ?>

@@ -1,5 +1,6 @@
 <?php
 include 'include.php';
+include './required.php';
 $_SESSION['task'] = 'products';
 include 'header.php';
 //include 'action.php';

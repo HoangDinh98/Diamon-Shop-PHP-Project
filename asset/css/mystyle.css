@@ -59,6 +59,9 @@ a:hover{
 
 .product-box .title{
     margin: 10px 0px 0px 0px;
+    font-size: 16px;
+    font-weight: bold;
+    text-transform: uppercase;
 }
 
 .product-box p.price {
@@ -71,6 +74,11 @@ a:hover{
     display: block;
     color: #EF1212;
     font-size: 15px;
+}
+
+.product-box:hover .official-price-box {
+    color: #FFFF00 !important;
+    font-weight: bold;
 }
 
 
@@ -175,6 +183,10 @@ section.header_text.sub {
     background: #EB4800;
     border: 1px solid #CFCFCF;
     border-radius: 5px;
+}
+
+.fixed-cart {
+    position: fixed;
 }
 
 

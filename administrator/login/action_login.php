@@ -19,7 +19,7 @@ if (isset($_POST['submit'])) {
         if (mysqli_num_rows($query) == 1) {
             $query2 = mysqli_query($connect, "SELECT * FROM users WHERE user_name = '$user_name' AND password = MD5('$pass_word')");
             if(mysqli_num_rows($query2)==1) {
-                $_SESSION['username'] = $user_name;
+                $_SESSION['admin'] = $user_name;
                 header("Location: ../index.php");
             } else {
                 $pass_word == '' ? $pass_wordErr = 'Vui lòng nhập Mật khẩu': $pass_wordErr = 'Mật khẩu bị sai';

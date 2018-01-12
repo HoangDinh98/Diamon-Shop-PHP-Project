@@ -133,7 +133,7 @@ $_SESSION['last_visit'] = time();
             </table>
         </div>
         <div class = "span3 col">
-            <div class = "block">
+            <div class = "block fixed-cart" style="position: fixed; min-width: 19%;">
                 <h4>Thông tin đơn hàng</h4>
                 <div class="line-block"> Giỏ hàng của bạn hiện có: 
                     <div>

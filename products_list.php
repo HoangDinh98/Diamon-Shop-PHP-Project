@@ -177,6 +177,7 @@ include 'header.php';
     </section>
 </section>
 <?php
+include 'sticky-cart.php';
 include 'footer.php';
 ?>
 

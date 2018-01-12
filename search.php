@@ -15,8 +15,13 @@ if (isset($_POST ['search']) || isset($_GET['page'])) {
 //        echo '<script>alert( " AN ' . $search . '")</script>';
     }
 
-    $sql_search = "SELECT * FROM products WHERE name LIKE '%$search%' "
-            . "OR description LIKE '%$search%' OR price LIKE '%$search%' ";
+//    $sql_search = "SELECT * FROM products WHERE name LIKE '%$search%' "
+//            . "OR description LIKE '%$search%' OR price LIKE '%$search%' ";
+    $sql_search = "SELECT p.id AS id , prm.value AS promotion,  name, price "
+            . "FROM products AS p JOIN promotions AS prm ON p.promotion_id = prm.id  WHERE p.name LIKE '%$search%' "
+            . "OR p.description LIKE '%$search%' OR p.price LIKE '%$search%' ";
+
+//    echo '<script>alert( " AN ' . $sql_search . '")</script>';
 
     $query_search = mysqli_query($connect, $sql_search);
 
@@ -29,8 +34,12 @@ if (isset($_POST ['search']) || isset($_GET['page'])) {
         $page_curent = 1;
     $start = ($page_curent - 1) * $rows_per_page;
 
-    $sql_search = "SELECT * FROM products WHERE name LIKE '%$search%' "
-            . "OR description LIKE '%$search%' OR price LIKE '%$search%'  LIMIT $start,$rows_per_page  ";
+//    $sql_search = "SELECT * FROM products WHERE name LIKE '%$search%' "
+//            . "OR description LIKE '%$search%' OR price LIKE '%$search%'  LIMIT $start,$rows_per_page  ";
+
+    $sql_search = "SELECT p.id AS id , prm.value AS promotion,  name, price "
+            . "FROM products AS p JOIN promotions AS prm ON p.promotion_id = prm.id  WHERE p.name LIKE '%$search%' "
+            . "OR p.description LIKE '%$search%' OR p.price LIKE '%$search%'  LIMIT $start,$rows_per_page  ";
 
     $query_search = mysqli_query($connect, $sql_search);
 //    echo '<script>alert( " A1 ' . mysqli_num_rows($query_search) . '")</script>';
@@ -93,21 +102,32 @@ if (isset($_REQUEST['search']) || $is_continue == 1) {
                                             ?>    
                                             <li class="span3">
                                                 <div class="product-box">
-                                                    <span class="sale_tag"></span>
-                                                    <a href="product_detail.php?i=<?php echo $dong_search['id'] ?>">
-                                                        <p><img src='<?php echo $img; ?>' alt="" /></p>
-                                                        <p class="title"><?php echo $dong_search['name']; ?></p>          
-                                                        <p class="price"><?php
-                                                            if ($dong_search['price'] > 0) {
-                                                                echo($dong_search['price']);
-                                                                echo(" VND");
-                                                            } else
-                                                                echo(" Please Call!");
-                                                            ?></p> 
+                                                    <a style="display: block" href="product_detail.php?i=<?php echo $dong_search['id'] ?>">
+                                                        <span class="sale_tag" style="color: #FF0000;">
+                                                            <?php
+                                                            if ($dong_search['promotion'] > 0)
+                                                                echo "- " . $dong_search['promotion'] . " %";
+                                                            ?>
+                                                        </span>
+                                                        <img src='<?php echo $img; ?>' alt="" >
+                                                        <p class="title"><?php echo $dong_search['name']; ?></p>
+                                                        <!--<p class="category">Phong cách thể thao</p>-->
+                                                        <p class="price">
+                                                            <?php
+                                                            if ($dong_search['promotion'] > 0) {
+                                                                ?>
+                                                                <span><del><?php echo number_format($dong_search['price']) . ' đ' ?></del></span>
+                                                                <span class="official-price-box">
+                                                                    <?php echo number_format(round(($dong_search['price'] * (1 - $dong_search['promotion'] / 100)), 0)) . " đ" ?>
+                                                                </span>
+                                                                <?php
+                                                            } else {
+                                                                echo '<span class="official-price-box">' . number_format($dong_search['price']) . ' đ</span>';
+                                                            }
+                                                            ?>
+                                                        </p>
                                                     </a>
-                                                    <div>
-                                                        <input type="submit" value="Thêm vào giỏ hàng">
-                                                    </div>
+                                                    <input type="button" name="add_cart" class="add_cart" data-pid="<?php echo $dong_search['id'] ?>" value="Thêm vào giỏ hàng">
                                                 </div>
                                             </li>
                                             <?php
@@ -125,31 +145,17 @@ if (isset($_REQUEST['search']) || $is_continue == 1) {
             <!--phân trang-->
             <div style="margin-left: 50%;">
                 <?php
-//                if ($pages_no > 1) {
-//                    echo "Trang: ";
-//                    if ($page_curent > 1) {
-//                        echo "<a href='search.php?page=1' class=\"page\" >1</a>&nbsp;&nbsp;";
-//                        echo "<a href='search.php?page=" . ($page_curent - 1) . "&searchtext=".$search."' class=\"page\">Trước&nbsp;&nbsp;";
-//                    }
-//                    echo "<b class=\"page\" >$page_curent</b>&nbsp;&nbsp;";
-//                    if ($page_curent < $pages_no) {
-//                        echo "<a href='search.php?page=" . ($page_curent + 1) . "' class=\"page\" >2&nbsp;&nbsp;";
-//                        echo "<a href='search.php?page=$pages_no' class=\"page\" >3</a>&nbsp;&nbsp;";
-//                    }
-//                }
-                ?>
-                <?php
                 if ($pages_no > 1) {
                     echo "Pages: ";
                     if ($page_curent >= 1) {
                         if ($page_curent > 1) {
-                            echo "<a href='search.php?page=1&searchtext=" . $search . "' class=\"page-direct\" ><<</a>";
-                            echo "<a href='search.php?page=" . ($page_curent - 1) . "&searchtext=" . $search . "' class=\"page-direct\"><</a>";
+                            echo "<a href='search.php?page=1&searchtext=" . $search . "' class=\"page-direct\" >&nbsp;&nbsp;<<&nbsp;&nbsp;</a>";
+                            echo "<a href='search.php?page=" . ($page_curent - 1) . "&searchtext=" . $search . "' class=\"page-direct\">&nbsp;&nbsp;<&nbsp;&nbsp;</a>";
                         }
 
                         for ($i = 1; $i <= $pages_no; $i++) {
                             ?>
-                            <a href='search.php?page=<?php echo $i ?>' 
+                            <a href='search.php?page=<?php echo $i ?>&searchtext=<?php echo $search; ?>' 
                                class="page <?php
                                if ($page_curent == $i) {
                                    echo 'page-active';
@@ -161,8 +167,8 @@ if (isset($_REQUEST['search']) || $is_continue == 1) {
                         }
                     }
                     if ($page_curent < $pages_no) {
-                        echo "<a href='search.php?page=" . ($page_curent + 1) . "&searchtext=" . $search . "' class=\"page-direct\" >></a>";
-                        echo "<a href='search.php?page=" . $pages_no . "&searchtext=" . $search . "' class=\"page-direct\" >>></a>";
+                        echo "<a href='search.php?page=" . ($page_curent + 1) . "&searchtext=" . $search . "' class=\"page-direct\" >&nbsp;&nbsp;>&nbsp;&nbsp;</a>";
+                        echo "<a href='search.php?page=" . $pages_no . "&searchtext=" . $search . "' class=\"page-direct\" >&nbsp;&nbsp;>>&nbsp;&nbsp;</a>";
                     }
                 }
                 ?>
@@ -227,6 +233,7 @@ if (isset($_REQUEST['search']) || $is_continue == 1) {
 }
 ?>
 <?php
+include './sticky-cart.php';
 include 'footer.php';
 ?>  
 
