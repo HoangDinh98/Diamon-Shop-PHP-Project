@@ -67,13 +67,16 @@ if (isset($_POST["submit"])) {
     } elseif (empty($_POST['password']) && !empty($_POST['repassword'])) {
         $passwordErr = 'Vui lòng nhập vào Mật khẩu';
         $isErr = TRUE;
-    } elseif ((!empty($_POST['password']) && empty($_POST['repassword'])) || (!empty($_POST['password']) && !empty($_POST['repassword']))) {
+    } elseif ((!empty($_POST['password']) && empty($_POST['repassword']))) {
         if (strlen($_POST['password']) < 8) {
             $passwordErr = 'Mật khẩu phải từ 8 ký tự trở lên';
+            $isErr = TRUE;
         }
-        $repasswordErr = 'Vui lòng xác nhận lại Mật khẩu';
-        $isErr = TRUE;
     } else {
+        if (strlen($_POST['password']) < 8) {
+            $passwordErr = 'Mật khẩu phải từ 8 ký tự trở lên';
+            $isErr = TRUE;
+        }
         if ($_POST['password'] != $_POST['repassword']) {
             $passwordErr = "Mật khẩu và xác nhận mật khẩu không giống nhau";
         }
@@ -99,7 +102,7 @@ if (isset($_POST["submit"])) {
                 . "VALUES(?, ?, ?, ?, ?, ?, ?)";
 
         $stmt = $connect->prepare($query);
-        $stmt->bind_param("ssssids", $user_name, $email, MD5($pass_word), $fullname, $gender, $birthday, $phone);
+        $stmt->bind_param("ssssids", $user_name, $email, MD5($password), $fullname, $gender, $birthday, $phone);
         if ($stmt->execute()) {
             echo '<script>alert("Đăng ký thành công! Nhẫn OK để Đăng nhập")</script>';
             header("Location: ./login.php");
@@ -178,7 +181,7 @@ if (isset($_POST["submit"])) {
                     </div>
                 </div>
                 <a href="login.php" class="text-center new-account">Sử dụng tài khoản đã có? Đăng nhập tại đây!</a>
-                <a href="../demo.php" class="text-center new-account">Quay lại trang chủ</a>
+                <a href="../index.php" class="text-center new-account">Quay lại trang chủ</a>
             </div>
         </div>
     </body>

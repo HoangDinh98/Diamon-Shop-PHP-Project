@@ -5,7 +5,7 @@ $total_money = 0;
 ?>
 <?php
 // time is second
-$session_timeout = 30 * 60;
+$session_timeout = 60 * 60;
 
 if (!isset($_SESSION['last_visit'])) {
     $_SESSION['last_visit'] = time();
@@ -20,7 +20,7 @@ $_SESSION['last_visit'] = time();
 ?>
 
 <section class = "main-content">
-    <div class = "row">
+    <div class = "row" style="margin-bottom: 100px;">
         <div class = "span9">
             <h4 class = "title"><span class = "text"><strong>GIỎ HÀNG</strong> CỦA BẠN</span></h4>
 

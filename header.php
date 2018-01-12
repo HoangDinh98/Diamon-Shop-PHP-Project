@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         <meta charset="utf-8">
-        <title>Bootstrap E-commerce Templates</title>
+        <title>Diamond Shop</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="description" content="">
         <!--[if ie]><meta content='IE=8' http-equiv='X-UA-Compatible'/><![endif]-->
@@ -32,7 +32,7 @@
             <div class="row">
                 <div class="span4">
                     <a href="index.php" class="logo pull-left">
-                        <img src="./asset/themes/images/logo_1.png" class="site_logo" alt=""></a>
+                        <img src="./asset/themes/images/logo1.png" class="site_logo" alt=""></a>
 
                 </div>
                 <div class="span8">
