@@ -23,98 +23,131 @@ include 'header.php';
             <div class="row">
                 <div class="span12">
                     <h4 class="title">
-                      
+
                         <span class="pull-left"><span class="text"><span class="line">Sản Phẩm 
                                     <strong>
                                         <?php
-                                        if(isset($_GET['pi'])) {
+                                        if (isset($_GET['pi'])) {
                                             $category_id = $_GET['pi'];
                                             $query_execute = mysqli_query($connect, "SELECT name FROM categories WHERE id = $category_id");
                                             while ($query_result = mysqli_fetch_array($query_execute)) {
-                                                echo  $query_result['name'];
+                                                echo $query_result['name'];
                                             }
                                         } else {
                                             echo '';
                                         }
                                         ?>
                                     </strong></span></span></span>
-                      
+
                     </h4>
-                        <div id="myCarousel-2" class="myCarousel carousel slide">
-                            <div class="carousel-inner">
-                                <div class="active item">
-                                    <ul class="thumbnails"><br> 
+                    <div id="myCarousel-2" class="myCarousel carousel slide">
+                        <div class="carousel-inner">
+                            <div class="active item">
+                                <ul class="thumbnails"><br> 
+                                    <?php
+                                    $catg = $_GET['pi'];
+                                    $rows_result = mysqli_query($connect, "SELECT id FROM products WHERE category_id = $catg AND is_active = '1'");
+                                    $rows_no = mysqli_num_rows($rows_result);
+//                                    echo '<script>alert("'.$rows_no.'")</script>';
+                                    $rows_per_page = 4;
+                                    $pages_no = intval(($rows_no - 1) / $rows_per_page) + 1;
+
+                                    $page_curent = isset($_GET['page']) ? $_GET['page'] : 1;
+                                    if (!$page_curent)
+                                        $page_curent = 1;
+                                    $start = ($page_curent - 1) * $rows_per_page;
+                                    
+                                    $query = " SELECT products.id AS id , promotions.value AS promotion,  name, price
+                                        FROM products  JOIN promotions ON products.promotion_id = promotions.id 
+                                        WHERE category_id=$catg AND products.is_active = 1 
+                                            ORDER BY id desc 
+                                            LIMIT $start, $rows_per_page";
+                                    
+                                    $prs = mysqli_query($connect, $query);
+                                    
+
+
+                                    while ($pr = mysqli_fetch_array($prs)) {
+                                        $product_id = $pr['id'];
+                                        $ptr = mysqli_query($connect, "SELECT * FROM images WHERE product_id = $product_id AND is_active=1 AND is_thumbnail=1");
+                                        $pt = mysqli_fetch_array($ptr);
+                                        $img = $pt['path'];
+                                        if (!file_exists($img))
+                                            $img = "./asset/images/products/watch/watch1.jpg";
+                                        ?>
+
+                                        <li class="span3">
+                                            <div class="product-box">
+                                                <a style="display: block" href="product_detail.php?i=<?php echo $pr['id'] ?>">
+                                                    <span class="sale_tag" style="color: #FF0000;">
+                                                        <?php
+                                                        if ($pr['promotion'] > 0)
+                                                            echo "- " . $pr['promotion'] . " %";
+                                                        ?>
+                                                    </span>
+                                                    <img src='<?php echo $img; ?>' alt="" >
+                                                    <p class="title"><?php echo $pr['name']; ?></p>
+                                                    <!--<p class="category">Phong cách thể thao</p>-->
+                                                    <p class="price">
+                                                        <?php
+                                                        if ($pr['promotion'] > 0) {
+                                                            ?>
+                                                            <span><del><?php echo number_format($pr['price']) . ' đ' ?></del></span>
+                                                            <span class="official-price-box">
+                                                                <?php echo number_format(round(($pr['price'] * (1 - $pr['promotion'] / 100)), 0)) . " đ" ?>
+                                                            </span>
+                                                            <?php
+                                                        } else {
+                                                            echo '<span class="official-price-box">' . number_format($pr['price']) . ' đ</span>';
+                                                        }
+                                                        ?>
+                                                    </p>
+                                                </a>
+                                                <input type="button" name="add_cart" class="add_cart" data-pid="<?php echo $pr['id'] ?>" value="Thêm vào giỏ hàng">
+                                                <!--<input type="hidden" id="promotion-<?php echo $pr['id'] ?>" value="<?php echo $pr['promotion'] ?>">-->
+                                            </div>
+                                        </li>
+
                                         <?php
-                                        $catg = $_GET['pi'];
-                                        $rows_result = mysqli_query($connect, "SELECT id FROM products WHERE category_id=$catg");
-                                        $rows_no = mysqli_num_rows($rows_result);
-                                        $rows_per_page = 8;
-                                        $pages_no = intval(($rows_no - 1) / $rows_per_page) + 1;
-
-                                        $page_curent = isset($_GET['p']) ? $_GET['p'] : 1;
-                                        if (!$page_curent)
-                                            $page_curent = 1;
-                                        $start = ($page_curent - 1) * $rows_per_page;
-
-                                        $prs = mysqli_query($connect, " SELECT id , name, price FROM products 
-                                    	
-                                            WHERE category_id=$catg
-                                            order by id desc 
-                                            limit $start,$rows_per_page");
-                                        while ($pr = mysqli_fetch_array($prs)) {
-                                            $product_id = $pr['id'];
-                                            $ptr = mysqli_query($connect, "SELECT * FROM images WHERE product_id = $product_id LIMIT 1");
-                                            $pt = mysqli_fetch_array($ptr);
-                                            $img = $pt['path'];
-                                            if (!file_exists($img))
-                                                $img = "./asset/images/products/watch/watch1.jpg";
-                                            ?>
-
-                                            <li class="span3">
-                                                <div class="product-box">
-                                                    <span class="sale_tag"></span>
-                                                    <a href="product_detail.php?i=<?php echo $pr['id'] ?>">
-                                                        <p> <img src='<?php echo $img; ?>' alt="" /></p>
-                                                        <p  class="title"><?php echo $pr['name']; ?></p>
-                                                        <p class="price"><?php
-                                                            if ($pr['price'] > 0) {
-                                                                echo($pr['price']);
-                                                                echo(" VND");
-                                                            } else
-                                                                echo(" Please Call!");
-                                                            ?></p>
-                                                    </a>
-                                                    <div>
-                                                        <input type="submit" value="Thêm vào giỏ hàng">
-                                                    </div>
-                                                </div>
-                                            </li>
-
-
-                                            <?php
 //                                            $catg = $pr['category_id'];
-                                        }
-                                        ?> 
-                                    </ul>
-                                </div>
+                                    }
+                                    ?> 
+                                </ul>
                             </div>
                         </div>
+                    </div>
+                </div>
+            </div>
 
 
-                      
+
             <!--phân trang-->
             <div style="margin-left: 50%;">
                 <?php
                 if ($pages_no > 1) {
                     echo "Trang: ";
-                    if ($page_curent > 1) {
-                        echo "<a href='products_list.php?p=1' class=\"page\" >1</a>&nbsp;&nbsp;";
-                        echo "<a href='products_list.php?p=" . ($page_curent - 1) . "' class=\"page\">Trước&nbsp;&nbsp;";
+                    if ($page_curent >= 1) {
+                        if ($page_curent > 1) {
+                            echo "<a href='products_list.php?page=1&pi=" . $catg . "' class=\"page-direct\" >&nbsp;&nbsp;<<&nbsp;&nbsp;</a>";
+                            echo "<a href='products_list.php?page=" . ($page_curent - 1) . "&pi=" . $catg . "' class=\"page-direct\">&nbsp;&nbsp;<&nbsp;&nbsp;</a>";
+                        }
+
+                        for ($i = 1; $i <= $pages_no; $i++) {
+                            ?>
+                            <a href='products_list.php?page=<?php echo $i ?>&pi=<?php echo $catg; ?>' 
+                               class="page <?php
+                               if ($page_curent == $i) {
+                                   echo 'page-active';
+                               }
+                               ?>" >
+                                   <?php echo $i ?>
+                            </a>
+                            <?php
+                        }
                     }
-                    echo "<b class=\"page\" >$page_curent</b>&nbsp;&nbsp;";
                     if ($page_curent < $pages_no) {
-                        echo "<a href='products_list.php?p=" . ($page_curent + 1) . "' class=\"page\" >2&nbsp;&nbsp;";
-                        echo "<a href='products_list.php?p=$pages_no' class=\"page\" >3</a>&nbsp;&nbsp;";
+                        echo "<a href='products_list.php?page=" . ($page_curent + 1) . "&pi=" . $catg . "' class=\"page-direct\" >&nbsp;&nbsp;>&nbsp;&nbsp;</a>";
+                        echo "<a href='products_list.php?page=" . $pages_no . "&pi=" . $catg . "' class=\"page-direct\" >&nbsp;&nbsp;>>&nbsp;&nbsp;</a>";
                     }
                 }
                 ?>
